@@ -1,0 +1,20 @@
+{
+  "myenv": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-retrobase-myenv-180944-authRole",
+      "UnauthRoleArn": "arn:aws:iam::473238680024:role/amplify-retrobase-myenv-180944-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::473238680024:role/amplify-retrobase-myenv-180944-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-retrobase-myenv-180944-deployment",
+      "UnauthRoleName": "amplify-retrobase-myenv-180944-unauthRole",
+      "StackName": "amplify-retrobase-myenv-180944",
+      "StackId": "arn:aws:cloudformation:us-east-1:473238680024:stack/amplify-retrobase-myenv-180944/03b79410-536f-11eb-bca9-0a9de142f3dd",
+      "AmplifyAppId": "d46u7ovjur8i1"
+    },
+    "categories": {
+      "auth": {
+        "retrobase87cd4533": {}
+      }
+    }
+  }
+}

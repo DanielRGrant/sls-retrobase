@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src"
+    },
+    "apiUrl": "https://1rhd141uy0.execute-api.us-east-1.amazonaws.com/sls-retrobase-dev/sls-query-prot-s3"
+}
