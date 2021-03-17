@@ -45,6 +45,7 @@ const QueryFormPage = (props) => {
         let pushUrl;
         if (seqType === "Protein Sequence") {
             requestUrl = config.apiUrl;
+            console.log(requestUrl)            
             pushUrl = '/proteinquery/' + seq;
         } else {
             requestUrl = 'https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/dnasearchresults/';
