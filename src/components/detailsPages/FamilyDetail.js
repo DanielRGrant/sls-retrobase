@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+const config = require("../../jsconfig.json")
 
 const FamilyDetail = (props) => {
     
@@ -9,13 +10,11 @@ const FamilyDetail = (props) => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get('https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/rtfamilydata/', { "params": { "family": family}})
+        axios.get(config.queryApiUrl + "/familydetail", { "params": { "family": family}})
             .then(res => {
-                console.log(props)
                 setFamily(res.data.body[0].family)
                 setRtClass(res.data.body[0].class)
                 setData(res.data.body)
-                console.log(res.data.body[0])
             })
     }, []);
     

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+const config = require('../../jsconfig.json')
+
 
 const ClassDetail = (props) => {
 
@@ -12,7 +14,7 @@ const ClassDetail = (props) => {
     useEffect(() => {
         const FetchData = async () => {
             const rtClass = props.match.params.class
-            const response = await axios.get('https://77rvp0ctj2.execute-api.us-east-1.amazonaws.com/dev/classdetail', {params: {"class": rtClass}});
+            const response = await axios.get(config.queryApiUrl + "/classdetail", {params: {"class": rtClass}});
             setRtClass(response.data.body.class)
             setProteins(response.data.body.proteins)
             setFamilies(response.data.body.families)

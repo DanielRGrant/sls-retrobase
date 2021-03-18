@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+const config = require("../../jsconfig.json")
+
 
 
 const ProteinNameDetail = (props) => {
@@ -11,7 +13,7 @@ const ProteinNameDetail = (props) => {
     const [uniprotAccession, setUniprotAccession] = useState([]);
 
     useEffect(()=>{
-        axios.get('https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/proteinnamedata/', { params: { "protein": proteinName}})
+        axios.get(config.queryApiUrl + "/knownproteindetail", { params: { "protein": proteinName}})
         .then(res =>{
             console.log(res.data.body)
             setProteinName(res.data.body.protein)

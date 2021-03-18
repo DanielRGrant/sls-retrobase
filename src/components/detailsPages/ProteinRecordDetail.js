@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+const config = require("../../jsconfig.json")
 
 
 const ProteinRecordDetail = (props) => {
@@ -18,7 +19,7 @@ const ProteinRecordDetail = (props) => {
 
     useEffect(() => {
         const prot_id = props.match.params.protein_id
-        axios.get('https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/proteinrecorddata/', {"params": {"prot_id": prot_id}})
+        axios.get(config.queryApiUrl + "/predictedproteindetail", {"params": {"prot_id": prot_id}})
             .then(res => {
                 setProtId(res.data.body.prot_id)
                 setDnaId(res.data.body.dna_id)

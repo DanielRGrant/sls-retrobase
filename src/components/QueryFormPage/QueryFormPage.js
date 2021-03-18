@@ -44,11 +44,11 @@ const QueryFormPage = (props) => {
         let requestUrl;
         let pushUrl;
         if (seqType === "Protein Sequence") {
-            requestUrl = config.apiUrl;
+            requestUrl = config.apiUrl + "/sls-query-prot-s3";
             console.log(requestUrl)            
             pushUrl = '/proteinquery/' + seq;
         } else {
-            requestUrl = 'https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/dnasearchresults/';
+            requestUrl = config.apiUrl + "/sls-query-dna-s3";
             pushUrl = '/dnaquery/' + seq;            
         }
         const params = {

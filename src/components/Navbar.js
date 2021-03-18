@@ -13,6 +13,7 @@ import spannerIcon from '../assets/spannerIcon.png'
 import homeIcon from '../assets/homeIcon.png'
 import searchIcon from '../assets/searchIcon.png'
 import { AxiosGetAndPush } from '../functions/functions';
+const config = require("../jsconfig.json")
 
 
 const Navbar = (props) => {
@@ -25,7 +26,7 @@ const Navbar = (props) => {
         
         const search = e.target.search_input.value
         const params = { "search": search }
-        const requestUrl = 'https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/nav-searchbar-dyn/'
+        const requestUrl = config.queryApiUrl + "/navbarsearch"
         const pushUrl = "/searchresults/" + search
         AxiosGetAndPush(params, requestUrl, pushUrl, history)
     }

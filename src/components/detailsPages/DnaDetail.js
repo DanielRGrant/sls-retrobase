@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { PredictedProteinsWithIdsNoFilter } from '../../functions/functions'
-
+const config = require('../../jsconfig.json')
 
 const DnaDetail = (props) => {
     const [dna_id, setId] = useState(props.match.params.dna_id);
@@ -12,7 +12,7 @@ const DnaDetail = (props) => {
     const [proteinRecords, setProteinRecords] = useState([]);
 
     useEffect(() => {
-        axios.get('https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/dnarecorddata/', {params: {"dna_id": dna_id}})
+        axios.get(config.queryApiUrl + "/dnadetail", {params: {"dna_id": dna_id}})
             .then(res => {
                 setId(res.data.body.dna_id)
                 setFamily(res.data.body.family)
