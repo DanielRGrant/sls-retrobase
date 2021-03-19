@@ -23,7 +23,6 @@ const ProteinNameDetail = (props) => {
             setUniprotAccession(res.data.body.accession)
         })
     }, [])
-    throw {"pi":"jyg"}
     const proteinFunctionScript = <p> {proteinFunction}</p >
 
     return (
