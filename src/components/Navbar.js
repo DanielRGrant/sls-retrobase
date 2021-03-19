@@ -26,7 +26,7 @@ const Navbar = (props) => {
         
         const search = e.target.search_input.value
         const params = { "search": search }
-        const requestUrl = config.queryApiUrl + "/navbarsearch"
+        const requestUrl = config.queryApiUrl + "/navbar-search"
         const pushUrl = "/searchresults/" + search
         AxiosGetAndPush(params, requestUrl, pushUrl, history)
     }
