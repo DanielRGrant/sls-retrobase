@@ -52,8 +52,8 @@ const ProteinSearchResults = (props) => {
         customColumns: {
             "protein": (args) => {
                 const string_divider = "#";
-                const baseurl_protein = "/knownprotein/";
-                return MultiValStringColLink(args, string_divider, baseurl_protein)
+                const baseurl = "/knownprotein/";
+                return MultiValStringColLink(args, string_divider, baseurl)
             }
         }
     }

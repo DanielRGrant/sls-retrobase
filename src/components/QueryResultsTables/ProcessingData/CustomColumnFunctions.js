@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import { FilterOut, collectUniqueValsFun } from './react-table-creator'
 
 
-export function MultiValStringColLink({fieldValue, columnHeader, excludeRow, columnsToFilter, filters, collectUniqueVals, div, baseurl}) {
-    var vals = fieldValue.split(div)
+export function MultiValStringColLink({ fieldValue, columnHeader, excludeRow, columnsToFilter, filters, collectUniqueVals}, string_divider, baseurl,) {
+    var vals = fieldValue.split(string_divider)
     var fieldScriptTmp = vals.map((val, i) => {
         if (i + 1 !== vals.length) {
             return <Link to={baseurl + val}>{val},</Link>

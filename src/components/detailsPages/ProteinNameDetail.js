@@ -34,7 +34,7 @@ const ProteinNameDetail = (props) => {
                 <div>{proteinFunctionScript}</div>
 
                 <h2>Sequence</h2>
-                    <p>The following sequence was used for predicting which <i>in silico</i>-translated transcripts from the retrotransposon family, <Link to={/class/ + rtClass[0]}>{rtClass[1]}</Link>, are {proteinName} sequences: </p>
+                    <p>The following sequence was used for predicting which <i>in silico</i>-translated transcripts from the retrotransposon family, <Link to={/class/ + rtClass}>{rtClass}</Link>, are {proteinName} sequences: </p>
                     <p class= "wrapped nokern">{sequence}</p>
             </div>
         </section>
