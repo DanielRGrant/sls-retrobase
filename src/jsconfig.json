@@ -2,5 +2,5 @@
     "compilerOptions": {
         "baseUrl": "./src"
     },
-    "queryApiUrl": "https://19ignvnuma.execute-api.us-east-1.amazonaws.com/dev/sls-retrobase-dev" 
+    "queryApiUrl": "https://eip9xh6zhk.execute-api.us-east-1.amazonaws.com/dev/sls-retrobase-dev" 
 }

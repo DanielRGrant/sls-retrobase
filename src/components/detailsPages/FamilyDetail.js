@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+import { fetchPageData } from '../../functions/functions'
 const config = require("../../jsconfig.json")
 
 const FamilyDetail = (props) => {
@@ -10,11 +10,17 @@ const FamilyDetail = (props) => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get(config.queryApiUrl + "/familydetail", { "params": { "family": family}})
-            .then(res => {
-                setFamily(res.data.body[0].family)
-                setRtClass(res.data.body[0].class)
-                setData(res.data.body)
+        const fetchDataInput = {
+            headersParams: {"params": { "family": family }},
+            requestUrl: `${config.queryApiUrl}/familydetail`,
+            errorUrl: "/error",
+            history: props.history
+        }
+        fetchPageData(fetchDataInput).
+            then(res => {
+                setFamily(res.body[0].family)
+                setRtClass(res.body[0].class)
+                setData(res.body)
             })
     }, []);
     

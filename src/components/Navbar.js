@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
-import axios from 'axios'
+import { useAuth0 } from "@auth0/auth0-react";
 
 // icons
 import DropdownMenu from './DropDown';
@@ -13,12 +12,14 @@ import spannerIcon from '../assets/spannerIcon.png'
 import homeIcon from '../assets/homeIcon.png'
 import searchIcon from '../assets/searchIcon.png'
 import { AxiosGetAndPush } from '../functions/functions';
+import { logoutAwsAndAuth0 } from './Auth/AuthFunctions'
 const config = require("../jsconfig.json")
 
 
 const Navbar = (props) => {
     //search bar submit
     const history = useHistory();
+    const { loginWithRedirect, logout, isAuthenticated } = useAuth0()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,14 +30,6 @@ const Navbar = (props) => {
         const requestUrl = config.queryApiUrl + "/navbar-search"
         const pushUrl = "/searchresults/" + search
         AxiosGetAndPush(params, requestUrl, pushUrl, history)
-    }
-
-    async function signOut() {
-        try {
-            await Auth.signOut();
-        } catch (error) {
-            console.log('error signing out: ', error);
-        }
     }
 
     // mobile logic
@@ -66,10 +59,7 @@ const Navbar = (props) => {
     const signInOption = [
         {
             "title": "Sign In / Register",
-            "route": {
-                "pathname": "/signin",
-                "state": { "from": window.location.pathname}
-            }
+            "function": loginWithRedirect
         }
     ]
 
@@ -80,7 +70,7 @@ const Navbar = (props) => {
         },
         {
             "title": "Sign Out",
-            "function": signOut
+            "function": ()=>logoutAwsAndAuth0(logout)
         }
     ]
 
@@ -97,7 +87,6 @@ const Navbar = (props) => {
                 </span>
                 <img className="mobile-nav-icon" src={searchIcon} onClick={ OpenMobileSearch }/>
             </span>
-
 
 
             {mobileSearchBarActive ?
@@ -129,7 +118,7 @@ const Navbar = (props) => {
                 <span className="logout logout-mobile">
                     <DropdownMenu 
                         options={
-                            props.user
+                            isAuthenticated 
                                 ? signedInOptions
                                 : signInOption
                         }
@@ -140,7 +129,7 @@ const Navbar = (props) => {
                 <span className="logout logout-desktop">
                     <DropdownMenu
                         options={
-                            props.user
+                            isAuthenticated
                                 ? signedInOptions
                                 : signInOption
                         }

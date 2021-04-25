@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { fetchPageData } from '../../functions/functions'
 const config = require("../../jsconfig.json")
 
 
@@ -8,7 +8,7 @@ const ProteinRecordDetail = (props) => {
 
 
     const [proteinNames, setProteinNames] = useState([])
-    const [protId, setProtId] = useState([])
+    const [protId, setProtId] = useState(props.match.params.protein_id)
     const [dnaId, setDnaId] = useState([])
     const [coords, setCoords] = useState([])
     const [family, setFamily] = useState([])
@@ -18,19 +18,20 @@ const ProteinRecordDetail = (props) => {
 
 
     useEffect(() => {
-        const prot_id = props.match.params.protein_id
-        axios.get(config.queryApiUrl + "/predictedproteindetail", {"params": {"prot_id": prot_id}})
-            .then(res => {
-                setProtId(res.data.body.prot_id)
-                setDnaId(res.data.body.dna_id)
-                setCoords(res.data.body.coords)
-                setFamily(res.data.body.family)
-                setRtClass(res.data.body.class)
-                setSequence(res.data.body.prot_seq)
-                setKnownProt(res.data.body.known_prot)
-            }).
-            catch( res => {
-                console.log(res)
+        const fetchDataInput = {
+            headersParams: {params: { "prot_id": protId }},
+            requestUrl: `${config.queryApiUrl}/predictedproteindetail`,
+            errorUrl: "/error",
+            history: props.history
+        }
+        fetchPageData(fetchDataInput).
+            then(res => {
+                setDnaId(res.body.dna_id)
+                setCoords(res.body.coords)
+                setFamily(res.body.family)
+                setRtClass(res.body.class)
+                setSequence(res.body.prot_seq)
+                setKnownProt(res.body.known_prot)
             })
     }, []);
 

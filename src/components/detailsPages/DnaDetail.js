@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { PredictedProteinsWithIdsNoFilter } from '../../functions/functions'
+import { fetchPageData } from '../../functions/functions'
 const config = require('../../jsconfig.json')
 
+
 const DnaDetail = (props) => {
+
     const [dna_id, setId] = useState(props.match.params.dna_id);
     const [family, setFamily] = useState();
     const [rtClass, setRtClass] = useState([]);
@@ -12,15 +13,21 @@ const DnaDetail = (props) => {
     const [proteinRecords, setProteinRecords] = useState([]);
 
     useEffect(() => {
-        axios.get(config.queryApiUrl + "/dnadetail", {params: {"dna_id": dna_id}})
-            .then(res => {
-                setId(res.data.body.dna_id)
-                setFamily(res.data.body.family)
-                setRtClass(res.data.body.class)
-                setSequence(res.data.body.dna_seq)
-                setProteinRecords(res.data.body.protein_data)
+        const fetchDataInput = {
+            headersParams: {params: {"dna_id": dna_id}},
+            requestUrl: `${config.queryApiUrl}/dnadetail`,
+            errorUrl: "/error",
+            history: props.history
+        }
+        fetchPageData(fetchDataInput).
+            then(res=>{
+                setId(res.body.dna_id)
+                setFamily(res.body.family)
+                setRtClass(res.body.class)
+                setSequence(res.body.dna_seq)
+                setProteinRecords(res.body.protein_data)
             })
-    }, [])
+    }, []);
  
     const proteinScript = proteinRecords
         && Object.keys(proteinRecords).length === 0 
@@ -60,8 +67,6 @@ const DnaDetail = (props) => {
                     </>
                 )
             })
-
-    console.log(proteinScript)
     return (
         <section>
             <div className="box">

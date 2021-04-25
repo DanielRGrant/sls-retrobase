@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useTableScript from './ProcessingData/react-table-creator'
-import { processDNAQueryProts, FilterDNAProts } from './ProcessingData/CustomColumnFunctions'
+import useTableScript from '../react-table-creator/react-table-creator'
+import { processDNAQueryProts, FilterDNAProts } from '../react-table-creator/CustomColumnFunctions'
 
 
 const prot_idURL = "/predictedprotein/"
@@ -46,6 +46,7 @@ const DnaSearchResults = (props) => {
         ],
         customColumns: {
             "all_rec_prots": (args) => {
+                console.log(args)
                 return FilterDNAProts(args)
             }
         }

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MultiValStringColLink } from './ProcessingData/CustomColumnFunctions'
-import useTableScript from './ProcessingData/react-table-creator';
+import { MultiValStringColLink } from '../react-table-creator/CustomColumnFunctions'
+import useTableScript from '../react-table-creator/react-table-creator';
 
 
 const ProteinSearchResults = (props) => {

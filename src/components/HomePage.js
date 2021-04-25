@@ -1,29 +1,18 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import LoginButton from './Auth/LogInButton'
+import LogoutButton from './Auth/LogOutButton'
+import SignupButton from './Auth/SignupButton'
+import { fetchAwsCreds } from './Auth/AuthFunctions'
+import { useAuth0 } from "@auth0/auth0-react";
+import AWS from 'aws-sdk';
 
 
 const HomePage = () => {
 
     const [rtClasses, setRtClasses] = useState([]);
-
-    /*useEffect(() => {
-        axios.get('https://9fqebvawee.execute-api.us-east-1.amazonaws.com/dev/listrtclasses')
-            .then(res => {
-                setRtClasses(res.data.rt_classes)
-            })
-    }, [])
-
-    const rtClassesScript = rtClasses.map( rtClass=>{
-        return(
-            <li>
-                <Link to={"/class/" + rtClass[0]}>
-                    {rtClass[1]}
-                </Link>
-            </li>
-        )
-    })
-    */
+    const { user, getAccessTokenSilently } = useAuth0();
 
     return (
             <section className="home-page">

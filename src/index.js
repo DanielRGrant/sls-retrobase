@@ -2,17 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-//Authentication
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
-
-
+import Auth0ProviderWithHistory from './components/Auth/auth0-provider-with-history'
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Auth0ProviderWithHistory>
+      <App />
+    </Auth0ProviderWithHistory>
   </React.StrictMode>,
   document.getElementById('root')
 );

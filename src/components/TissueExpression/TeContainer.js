@@ -1,45 +1,31 @@
-import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import TeGraphComponent from './TeGraphs';
 import { Link } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const TeContainer = (props) => {
 
+    const { isAuthenticated, loginWithRedirect } = useAuth0()
     const [tissueSelected, setTissueSelected] = useState(null);
     const SelectTissue = (e) => {
         setTissueSelected(e.target.innerHTML)
     }
-
-    async function signOut() {
-        try {
-            await Auth.signOut();
-        } catch (error) {
-            console.log('error signing out: ', error);
-        }
-    }
-
     
-    const signUpIn = props.user
+    const signUpIn = isAuthenticated
         ? (
-            <div style={{ "padding-top": "2rem" }}>
-                <Link to="/tissueexpressionupload">Upload New Data</Link>
-                <div>
-                    <span class="PageNumberLinks" style={{ "padding-left": 0}} onClick={signOut}>Sign out</span>
+                <div style={{ "padding-top": "2rem" }}>
+                    <Link to={{
+                        "pathname": "/query",
+                        "state": {"uploadTe": true}
+                    }}>
+                        Upload New Data
+                    </Link>
                 </div>
-            </div>
             )
         : (
             <div style={{ "padding-top": "2rem" }}>
                 <span > Click here to sign in and upload your own data... </span>
-                <Link to={{
-                    "pathname": "/signin",
-                    "state": {
-                        "from": "/tissueexpression"
-                    }
-                }}
-                    > Sign in / Register
-                </Link> 
+                <span onClick={loginWithRedirect} className="PageNumberLinks">Sign In / Register</span>
             </div>
     )
  

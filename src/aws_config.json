@@ -1,0 +1,14 @@
+{
+    "identityPoolId": "us-east-1:fdcc6ee7-8763-4896-9a54-935a67a06545",
+    "region": "us-east-1",
+    "userPoolId": "us-east-1_afMnL1zXY",
+    "userPoolWebClientId": "71h27rnmcenh49ep2d9im6mvlq",
+    "oauth": {
+        "domain": "https://retrobase-danielrgrant.auth.us-east-1.amazoncognito.com",
+        "scope": ["email", "profile", "openid", "aws.cognito.signin.user.admin"],
+        "redirectSignIn": "http://localhost:3000",
+        "redirectSignOut": "http://localhost:3000",
+        "responseType": "code",
+        "auth0_identity_provider": "auth0test"
+    }
+}

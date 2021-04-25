@@ -45,3 +45,67 @@ export const AxiosGetAndPush = async (params, requestUrl, pushUrl, history) => {
 export const delay = ms => new Promise(res => setTimeout(res, ms));
 
 
+export const fetchPageData = async ({ headersParams, requestUrl, errorUrl, history}) => {
+    try {
+        const res = await axios.get(
+            requestUrl,
+            headersParams
+        )
+        return res.data
+    } catch (error) {
+        history.push({
+            pathname: errorUrl,
+            state: {
+                error:
+                    error.message === "Network Error"
+                        ? "Network Error; Check internet connection"
+                        : "Unspecified Error"
+            }
+        })
+    }
+}
+
+export const SubmitFile = async ({metadata, formData, accessToken, getPresignedUrlUrl, history, pushUrl}) => {
+
+    const requestPayload = {
+        "headers": {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        "params": metadata
+    }
+
+    if (!formData.file) {
+        return {
+            success: false,
+            message: "Please select a file"
+        }
+    }
+
+    if (metadata.uploadTe === "Yes" && (!metadata.tissue || !metadata.researcher || (metadata.published === "Yes" && !metadata.publication))) {
+        return {
+            success: false,
+            message: "You have missed some form fields"
+        }
+    }
+    try {
+        const response = await axios.get(getPresignedUrlUrl, requestPayload)
+        const signedURL = response.data.url
+        //rename file to key for presigned upload
+        Object.defineProperty(formData.file, 'name', {
+            writable: true,
+            value: response.data.key
+        });
+        await axios.put(signedURL, formData.file)
+        history.push("/filesentsuccess")
+        return {
+            success: true,
+            message: "Success!"
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: "Network Error"
+        }
+    }
+}
+

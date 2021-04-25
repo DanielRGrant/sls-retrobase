@@ -1,26 +1,30 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchPageData } from '../../functions/functions'
 const config = require('../../jsconfig.json')
 
 
 const ClassDetail = (props) => {
 
-    const [rtClass, setRtClass] = useState("")
+    const [rtClass, setRtClass] = useState(props.match.params.class)
     const [proteins, setProteins] = useState("")
     const [families, setFamilies] = useState("")
     const [description, setDescription] = useState("")
 
     useEffect(() => {
-        const FetchData = async () => {
-            const rtClass = props.match.params.class
-            const response = await axios.get(config.queryApiUrl + "/classdetail", {params: {"class": rtClass}});
-            setRtClass(response.data.body.class)
-            setProteins(response.data.body.proteins)
-            setFamilies(response.data.body.families)
-            setDescription(response.data.body.description)
+        const fetchDataInput = {
+            headersParams: {"params": { "class": rtClass }},
+            requestUrl: `${config.queryApiUrl}/classdetail`,
+            errorUrl: "/error",
+            history: props.history
         }
-        FetchData();
+        fetchPageData(fetchDataInput).
+            then(res=>{
+                setRtClass(res.body.class)
+                setProteins(res.body.proteins)
+                setFamilies(res.body.families)
+                setDescription(res.body.description)
+            })
     }, []); 
     
     const proteinsScript = proteins.split("#").map( protein => {

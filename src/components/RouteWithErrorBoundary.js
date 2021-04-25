@@ -1,11 +1,11 @@
 import { Route } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
-import DetailErrorFallback from './ErrorFallbacks/DetailErrorFallback'
+import ErrorPage from './ErrorPage'
 
 const RouteWithErrorBoundary = (props) => {
     return (
         <ErrorBoundary key={props.location?.pathname}
-            FallbackComponent = {DetailErrorFallback}
+            FallbackComponent = {ErrorPage}
         >
             <Route {...props} />
         

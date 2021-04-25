@@ -92,6 +92,24 @@ h2 {
   grid-template-columns: repeat(7, 1fr);
 }
 
+.infoBox {
+  width: 300px;
+  padding: 30px;
+  background-color:hsl(216, 81%, 94%);
+  border: 2px solid rgba(0, 0, 0, 0.472);
+  border-radius: 5px;
+  margin-bottom: 5px
+}
+.infoBox h3 {
+  font-size: 1.7rem
+}
+.infoBox th {
+  width: 70px
+}
+.infoBox tr:nth-child(even) {
+  background-color:hsl(216, 81%, 94%)
+}
+
 /* navbar */
 
 nav {
@@ -322,7 +340,10 @@ th, td {
   margin:  1em 1% 0.5em 0.5em;
   background-color: #fafdff;
   display: inline-block
+}
 
+section.TeResultsPage .query-filters-box select {
+  max-width: 150px
 }
 
 .querytable table {
@@ -362,7 +383,7 @@ th, td {
 }
 
 .proteinseqtable {
-  font-size: 1rem;
+  font-size: 1.7rem;
 }
 
 .SearchResult {
@@ -500,7 +521,7 @@ section.documentation li {
   width: max-content
 }
 
-section.queryLoading {
+section.LoadingBox {
   max-width: 400px;
   min-width: 350px;
   align-items: center;
@@ -508,20 +529,20 @@ section.queryLoading {
   height: 200px
 }
 
-section.queryLoading .box {
+section.LoadingBox .box {
   align-items: center;
   margin: auto;
   width: max-content;
 }
 
-section.queryLoading h3 {
+section.LoadingBox h3 {
   font-size: 1.7rem
 }
 
 
-section.queryLoading .css-1ujetdd{
+section.LoadingBox .css-1ujetdd{
   top: 9px;
-  left: 47%
+  left: 50%
 }
 
 .inlineMessage.fail { 
@@ -751,7 +772,7 @@ section.prot-query-results-page {
     column-count:2
   }
 
-  section.queryLoading {
+  section.LoadingBox {
     margin:60px auto;
   }
 }
