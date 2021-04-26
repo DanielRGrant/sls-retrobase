@@ -12,7 +12,6 @@ import spannerIcon from '../assets/spannerIcon.png'
 import homeIcon from '../assets/homeIcon.png'
 import searchIcon from '../assets/searchIcon.png'
 import { AxiosGetAndPush } from '../functions/functions';
-import { logoutAwsAndAuth0 } from './Auth/AuthFunctions'
 const config = require("../jsconfig.json")
 
 

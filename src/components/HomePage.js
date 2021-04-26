@@ -1,19 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import LoginButton from './Auth/LogInButton'
-import LogoutButton from './Auth/LogOutButton'
-import SignupButton from './Auth/SignupButton'
-import { fetchAwsCreds } from './Auth/AuthFunctions'
-import { useAuth0 } from "@auth0/auth0-react";
-import AWS from 'aws-sdk';
+
 
 
 const HomePage = () => {
-
-    const [rtClasses, setRtClasses] = useState([]);
-    const { user, getAccessTokenSilently } = useAuth0();
-
     return (
             <section className="home-page">
                 <div className="box">

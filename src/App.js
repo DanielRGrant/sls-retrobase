@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 
 // Authentication
 import Auth0ProviderWithHistory from "./components/Auth/auth0-provider-with-history";
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 // Error handling and auth
 import { ErrorBoundary } from 'react-error-boundary'
@@ -35,17 +37,7 @@ import LoginRedirect from './components/Auth/LoginRedirect'
 // React Routing
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProtectedRouteWithErrorBoundary from './components/Auth/ProtectedRouteWithErrorBoundary'
-import ProtectedRoute from './components/Auth/ProtectedRoute'
 import ProtectedRouteAuth0 from './components/Auth/ProtectedRouteAuth0'
-
-
-
-// Amplify
-import Amplify, { Auth } from 'aws-amplify';
-import { Hub } from 'aws-amplify';
-import { useAuth0 } from '@auth0/auth0-react';
-const aws_config = require('./aws_config.json')
-Amplify.configure(aws_config);
 
 
 function App() {
@@ -56,7 +48,7 @@ function App() {
       <Navbar/> 
       <Switch>
           <RouteWithErrorBoundary exact path="/" component={HomePage} />
-          <Route exact path="/account" component={AccountPage} />
+          <ProtectedRouteWithErrorBoundary exact path="/account" component={AccountPage} />
           <RouteWithErrorBoundary path="/fileresults/:fileid" component={TeResultsPage} />
           <RouteWithErrorBoundary path="/class/:class" component={ClassDetail} />
           <RouteWithErrorBoundary path="/family/:family_id" component={FamilyDetail} />
