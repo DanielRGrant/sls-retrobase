@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchPageData } from "../functions/functions"
-import { signedRequest, makeSignedRequest,  } from "../functions/awsFunctions"
 import { customClasses, linkIfOtherColEq } from "../components/react-table-creator/CustomColumnFunctions"
 import useTableScript from "../components/react-table-creator/react-table-creator"
 const config = require('../jsconfig.json')
