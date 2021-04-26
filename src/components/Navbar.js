@@ -69,7 +69,7 @@ const Navbar = (props) => {
         },
         {
             "title": "Sign Out",
-            "function": ()=>logoutAwsAndAuth0(logout)
+            "function": () => logout({ returnTo: window.location.origin })
         }
     ]
 
