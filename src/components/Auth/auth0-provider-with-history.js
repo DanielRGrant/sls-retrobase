@@ -3,10 +3,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
+const config = require('../../jsconfig.json')
 
 const Auth0ProviderWithHistory = ({ children }) => {
-    const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-    const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+    const domain = config.auth0Domain
+    const clientId = config.auth0ClientId
 
     const history = useHistory();
 
@@ -18,9 +19,9 @@ const Auth0ProviderWithHistory = ({ children }) => {
         <Auth0Provider
             domain={domain}
             clientId={clientId}
-            redirectUri={"http://localhost:3000/loginredirect"}
+            redirectUri={config.websiteUrl}
             onRedirectCallback={onRedirectCallback}
-            audience="https://sls-retrobase"
+            audience={config.auth0Audience}
             scope="get:data"
         >
             {children}
