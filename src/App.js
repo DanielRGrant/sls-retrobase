@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 // Authentication
 import Auth0ProviderWithHistory from "./components/Auth/auth0-provider-with-history";
 import { useAuth0 } from '@auth0/auth0-react';
+import LoggedOut from './components/Auth/LoggedOut'
 
-
-// Error handling and auth
+// Error handling
 import { ErrorBoundary } from 'react-error-boundary'
 import RouteWithErrorBoundary from './components/RouteWithErrorBoundary'
 import DetailErrorFallback from './components/ErrorFallbacks/DetailErrorFallback'
@@ -32,7 +32,7 @@ import DnaDetail from './components/detailsPages/DnaDetail';
 import TeContainer from './components/TissueExpression/TeContainer';
 import Documentation from './components/Documentation';
 import ErrorPage from './components/ErrorPage';
-import LoginRedirect from './components/Auth/LoginRedirect'
+
 
 // React Routing
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -61,13 +61,12 @@ function App() {
           <RouteWithErrorBoundary path="/dnaquery/:query" component={DnaSearchResults} />
           <RouteWithErrorBoundary path="/searchresults/:search" component={NavbarSearchResults} />
 
-          <Route path="/tissueexpression">
-            <TeContainer/>
-          </Route>
+          <RouteWithErrorBoundary path="/tissueexpression" component={TeContainer}/>
+
+          <RouteWithErrorBoundary path="/loggedout" component={LoggedOut}/>
 
           <RouteWithErrorBoundary path="/documentation" component={Documentation}/>
 
-          <Route path="/loginredirect" component={ LoginRedirect }/>  
           
           <RouteWithErrorBoundary path="/error" component={ErrorPage}/>
           <RouteWithErrorBoundary component={NotFound}/>

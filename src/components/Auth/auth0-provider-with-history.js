@@ -6,20 +6,17 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const config = require('../../jsconfig.json')
 
 const Auth0ProviderWithHistory = ({ children }) => {
-    const domain = config.auth0Domain
-    const clientId = config.auth0ClientId
 
     const history = useHistory();
 
     const onRedirectCallback = (appState) => {
-        history.push(appState?.returnTo || window.location.pathname);
+        history.push(appState?.returnTo || null);
     };
-
     return (
         <Auth0Provider
-            domain={domain}
-            clientId={clientId}
-            redirectUri={config.websiteUrl}
+            domain={config.auth0Domain}
+            clientId={config.auth0ClientId}
+            redirectUri={window.location.origin}
             onRedirectCallback={onRedirectCallback}
             audience={config.auth0Audience}
             scope="get:data"

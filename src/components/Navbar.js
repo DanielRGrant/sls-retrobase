@@ -58,7 +58,7 @@ const Navbar = (props) => {
     const signInOption = [
         {
             "title": "Sign In / Register",
-            "function": loginWithRedirect
+            "function": () => loginWithRedirect({ appState: { returnTo: window.location.pathname } })
         }
     ]
 
@@ -69,7 +69,7 @@ const Navbar = (props) => {
         },
         {
             "title": "Sign Out",
-            "function": () => logout({ returnTo: window.location.origin })
+            "function": () => logout({returnTo: `${window.location.origin}/loggedout`})
         }
     ]
 

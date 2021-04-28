@@ -2,9 +2,9 @@
     "compilerOptions": {
         "baseUrl": "./src"
     },
-    "queryApiUrl": "https://eip9xh6zhk.execute-api.us-east-1.amazonaws.com/dev/sls-retrobase-dev",
-    "websiteUrl": "localhost:3000",
-    "auth0Audience": "https: //sls-retrobase",
+    "queryApiUrl": "https://pgrz0nz0j6.execute-api.us-east-1.amazonaws.com/dev/sls-retrobase-dev",
+    "websiteUrl": "http://localhost:3000/",
+    "auth0Audience": "https://sls-retrobase",
     "auth0Domain": "dev-y33gimcf.eu.auth0.com",
     "auth0ClientId": "Xn6SDc43vE8P0sQHkVLtiBSBVFT5rJMU"
 }
