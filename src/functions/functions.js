@@ -51,6 +51,7 @@ export const fetchPageData = async ({ headersParams, requestUrl, errorUrl, histo
             requestUrl,
             headersParams
         )
+        console.log(res)
         return res.data
     } catch (error) {
         history.push({

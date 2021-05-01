@@ -14,13 +14,13 @@ const fetchData = async function (token, history, setData) {
                 Authorization: `Bearer ${token}`,
             }
         },
-        requestUrl: `${config}/teuploadcheckprogress/`,
+        requestUrl: `${config.queryApiUrl}/mzid-check-progress/`,
         errorUrl: "/error",
         history: history
     }
     const data = await fetchPageData(accountRequestInput)
-    console.log(data.body)
-    setData(data.body)
+    console.log(data)
+    if (data) setData(data.body)
 }
 
 const  actionsOptionsConstructor = async (token, setRowActions) => {

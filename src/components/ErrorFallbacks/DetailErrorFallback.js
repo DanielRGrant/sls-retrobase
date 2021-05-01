@@ -2,7 +2,11 @@ import React from 'react'
 
 const DetailErrorFallback = ({error}) => {
     return (
-        <p>Oh nooooo shit happened</p>
+        <section>
+            <div className="box">
+                <p>Uh oh, an error occurred</p>
+            </div>
+        </section>
     )
 }
 

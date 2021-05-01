@@ -6,7 +6,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const config = require('../../jsconfig.json')
 
 const Auth0ProviderWithHistory = ({ children }) => {
-
+    console.log(config.auth0Domain)
     const history = useHistory();
 
     const onRedirectCallback = (appState) => {

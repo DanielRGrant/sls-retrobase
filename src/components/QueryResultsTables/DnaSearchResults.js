@@ -10,7 +10,7 @@ const protURL = "/knownprotein/"
 
 const DnaSearchResults = (props) => {
 
-    const params = {
+    const colParams = {
         columnHeaders: [
             "dna_id",
             "class",
@@ -55,7 +55,7 @@ const DnaSearchResults = (props) => {
     const data = JSON.parse(props.location.state.data)
     const processedData = processDNAQueryProts(data, prot_idURL, protURL)
     
-    var [dataTable, filterDropdownsRaw, pageLinks] = useTableScript(processedData, params)
+    var [dataTable, filterDropdownsRaw, pageLinks] = useTableScript({ "tableData": processedData, colParams })
 
     const filterLabels = [<span>Class:</span>, <span>Family:</span>, <span>Predicted Protein:</span>]
     const filterDropdowns = filterDropdownsRaw.map( (filterVariable, i) => {

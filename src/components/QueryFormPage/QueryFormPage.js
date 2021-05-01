@@ -30,7 +30,6 @@ const QueryFormPage = (props) => {
 
     const [inputType, setInputType] = useState(props.location.state?.uploadTe ? "file" : "sequence");
     const [uploadTe, setUploadTe] = useState("Yes");
-    console.log(props.location.state?.uploadTe)
     const onInputTypeChange = (e) => {
         setInputType(e.target.value)
     }

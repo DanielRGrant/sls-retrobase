@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 // Authentication
 import Auth0ProviderWithHistory from "./components/Auth/auth0-provider-with-history";
-import { useAuth0 } from '@auth0/auth0-react';
 import LoggedOut from './components/Auth/LoggedOut'
 
 // Error handling
@@ -37,7 +36,6 @@ import ErrorPage from './components/ErrorPage';
 // React Routing
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProtectedRouteWithErrorBoundary from './components/Auth/ProtectedRouteWithErrorBoundary'
-import ProtectedRouteAuth0 from './components/Auth/ProtectedRouteAuth0'
 
 
 function App() {

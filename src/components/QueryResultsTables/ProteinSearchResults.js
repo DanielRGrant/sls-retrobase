@@ -6,10 +6,10 @@ import useTableScript from '../react-table-creator/react-table-creator';
 
 
 const ProteinSearchResults = (props) => {
-    const dataResponse = JSON.parse(props.location.state.data)
+    const tableData = JSON.parse(props.location.state.data)
     const query = props.match.params.query;
 
-    const params = {
+    const colParams = {
         columnHeaders: [
             "prot_id",
             "class",
@@ -58,7 +58,7 @@ const ProteinSearchResults = (props) => {
         }
     }
 
-    var [dataTable, filterDropdownsRaw, pageLinks] = useTableScript(dataResponse, params)
+    var [dataTable, filterDropdownsRaw, pageLinks] = useTableScript({ tableData, colParams })
 
     const filterLabels = [<span>Class:</span>, <span>Family:</span>, <span>Predicted Protein:</span>]
     const filterDropdowns = filterDropdownsRaw.map((filterVariable, i) => {
