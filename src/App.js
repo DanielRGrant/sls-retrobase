@@ -15,7 +15,7 @@ import NotFound from './components/NotFound'
 
 // Components
 import HomePage from './components/HomePage';
-import AccountPage from './components/AccountPage';
+import AccountPage from './components/AccountPage/AccountPage';
 import TeResultsPage from './components/TeResultsPage';
 import DnaSearchResults from './components/QueryResultsTables/DnaSearchResults';
 import ProteinSearchResults from './components/QueryResultsTables/ProteinSearchResults';

@@ -6,7 +6,7 @@ import DropDown from './drop-down'
 export function collectUniqueValsFun(columnsToFilter, collectUniqueVals, columnHeader, fieldValue) {
     //Collect values for filter options
     if (columnsToFilter.includes(columnHeader)) {
-        if (!(collectUniqueVals[columnHeader].includes(fieldValue))) {
+        if (!collectUniqueVals[columnHeader].includes(fieldValue)) {
             collectUniqueVals[columnHeader].push(fieldValue)
         }
     }
@@ -142,7 +142,7 @@ const useTableScript = ({tableData, colParams, itemsPerPageIn = 10, numPageNumbe
     var rowList = [] // collect table rows
     // iteratively create table rows
 
-
+    if (!tableData.length) return [null, null, null, null, null]
 
     for (var k = 0; k < sortedTableData.length; k++) {
         var excludeRow = false;
@@ -306,7 +306,6 @@ const useTableScript = ({tableData, colParams, itemsPerPageIn = 10, numPageNumbe
     if (rowActions){
         actionsMenu = <button onClick={() => rowActions.deleteFileData(actionString)}>Delete Data</button>
     }
-
     return [finalTable, filterDropdowns, pageLinks, itemsPerPageEl, actionsMenu]
 }
 

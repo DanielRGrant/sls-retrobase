@@ -51,7 +51,6 @@ export const fetchPageData = async ({ headersParams, requestUrl, errorUrl, histo
             requestUrl,
             headersParams
         )
-        console.log(res)
         return res.data
     } catch (error) {
         history.push({
@@ -90,7 +89,8 @@ export const SubmitFile = async ({metadata, formData, accessToken, getPresignedU
     }
     try {
         const response = await axios.get(getPresignedUrlUrl, requestPayload)
-        const signedURL = response.data.url
+        const signedURL = JSON.parse(response.data.body).url
+        console.log(signedURL)
         //rename file to key for presigned upload
         Object.defineProperty(formData.file, 'name', {
             writable: true,

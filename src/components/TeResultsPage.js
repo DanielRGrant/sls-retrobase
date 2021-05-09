@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from 'react'
 import { fetchPageData } from '../functions/functions'
 import useTableScript from "../components/react-table-creator/react-table-creator"
@@ -6,18 +7,27 @@ const config = require('../jsconfig.json')
 
 
 const TeResultsPage = (props) => {
+    const { getAccessTokenSilently } = useAuth0();
     const [data, setData] = useState([])
     const [fileId, setFileId] = useState(props.match.params.fileid)
+    const [token, setToken] = useState(null)
+
 
     useEffect(() => {
-        const fetchData = async function () {
+        getAccessTokenSilently().then(
+            token => setToken(token)
+        )
+        const fetchData = async function (token, history, setData) {
             const fetchDataInput = {
                 headersParams: {
                     "params": { "file_id": fileId },
+                    "headers": {
+                        Authorization: `Bearer ${token}`
+                    }
                 },
-                requestUrl: `${config.queryApiUrl}/tefileresults`,
+                requestUrl: `${config.queryApiUrl}/mzid-get-results`,
                 errorUrl: "/error",
-                history: props.history
+                history: history
             }
 
             fetchPageData(fetchDataInput)
@@ -25,10 +35,12 @@ const TeResultsPage = (props) => {
                     setData(res.body)
                 })
         }
-        fetchData()
-    }, []);
+        if (token) {
+            fetchData(token, props.history, setData)
+        }
+    }, [token]);
 
-    const params = {
+    const colParams = {
         columnHeaders: [
             "peptide_id",
             "seq_observed",
@@ -81,9 +93,9 @@ const TeResultsPage = (props) => {
     }
 
 
-    var [dataTable, filterDropdownsRaw, pageLinks, itemsPerPageEl] = useTableScript(data, params)
+    var [dataTable, filterDropdownsRaw, pageLinks, itemsPerPageEl] = useTableScript({ "tableData": data, colParams })
     const filterLabels = ["Protein", "Matched Protein", "DNA ID", "Class", "Family", "Peptide ID"]
-    const filterDropdowns = filterDropdownsRaw.map((filterVariable, i) => {
+    const filterDropdowns = filterDropdownsRaw && filterDropdownsRaw.map((filterVariable, i) => {
         return (
             <div className="filter-item">
                 <div className="filter-element"><span>{filterLabels[i]}</span></div>

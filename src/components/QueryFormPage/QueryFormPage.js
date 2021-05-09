@@ -143,7 +143,7 @@ const QueryFormPage = (props) => {
                 scope: "get:data",
             });
 
-            const getPresignedUrlUrl = "https://kvuhomev06.execute-api.us-east-1.amazonaws.com/dev/get-s3-presigned-url"
+            const getPresignedUrlUrl = `${config.queryApiUrl}/requestpresignedurls3`
             const pushUrl = "/filesentsuccess"
 
             SubmitFile({ metadata, formData, accessToken, getPresignedUrlUrl, history: props.history, pushUrl})

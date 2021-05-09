@@ -13,7 +13,7 @@ const NavbarSearchResults = (props) => {
             <Link to={"/class/" + rtClass.class} className="linkNoDecoration">
                 <div className="SearchResult">
                     <h3>{rtClass.class}</h3>
-                    <p>{rtClass.description.substr(0, 200)}...</p>
+                    
                 </div>
             </Link>
             

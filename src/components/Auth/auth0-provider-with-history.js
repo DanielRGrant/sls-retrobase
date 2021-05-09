@@ -6,11 +6,22 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const config = require('../../jsconfig.json')
 
 const Auth0ProviderWithHistory = ({ children }) => {
-    console.log(config.auth0Domain)
     const history = useHistory();
 
     const onRedirectCallback = (appState) => {
-        history.push(appState?.returnTo || null);
+        var returnTo = appState?.returnTo
+        returnTo = (
+            returnTo.startsWith('/dnaquery') || returnTo.startsWith('/protquery')
+                ? '/query' 
+                : returnTo
+        )
+
+        returnTo = (
+            returnTo==='/loggedout' || (!returnTo)
+                ? '/' 
+                : returnTo
+        )
+        history.push(returnTo || null);
     };
     return (
         <Auth0Provider

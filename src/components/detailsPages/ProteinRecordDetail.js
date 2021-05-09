@@ -6,8 +6,6 @@ const config = require("../../jsconfig.json")
 
 const ProteinRecordDetail = (props) => {
 
-
-    const [proteinNames, setProteinNames] = useState([])
     const [protId, setProtId] = useState(props.match.params.protein_id)
     const [dnaId, setDnaId] = useState([])
     const [coords, setCoords] = useState([])
@@ -24,8 +22,10 @@ const ProteinRecordDetail = (props) => {
             errorUrl: "/error",
             history: props.history
         }
+        console.log(protId)
         fetchPageData(fetchDataInput).
             then(res => {
+                console.log(res)
                 setDnaId(res.body.dna_id)
                 setCoords(res.body.coords)
                 setFamily(res.body.family)
