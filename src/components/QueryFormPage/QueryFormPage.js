@@ -8,6 +8,26 @@ import { AxiosGetAndPush, SubmitFile } from '../../functions/functions'
 import { useAuth0 } from '@auth0/auth0-react';
 const config = require('../../jsconfig.json')
 
+
+const QuerySequence = async (params, requestUrl, pushUrl, history) => {
+    const requestUrlTmp = 'https://8fx9day74b.execute-api.us-east-1.amazonaws.com/dev/presigned-put-object'
+    const resp = await axios.get(requestUrlTmp, { params: params })
+    const presignedUrl = resp.data.body
+    const response = await fetch(presignedUrl)
+    const data = await response.text()
+    history.push(
+        {
+            pathname: pushUrl,
+            state: { "data": data }
+        }
+    )
+    return {
+        success: true,
+        message: "No error"
+    }
+}
+
+
 const QueryFormPage = (props) => {
     const [loading, setLoading] = useState(false);
     const [loadingBoxTitle, setLoadingBoxTitle] = useState("");
@@ -73,6 +93,8 @@ const QueryFormPage = (props) => {
         const seqType = e.target.sequenceType.value;
         const seq = e.target.query.value;
 
+        const requestUrl = config.queryApiUrl + "/sls-query-sequences-s3";
+        //const requestUrl = 'https://8fx9day74b.execute-api.us-east-1.amazonaws.com/dev/presigned-put-object'
         
         const {valid, message} = ValidateSequence(seq,seqType)
         if (!valid) {
@@ -81,20 +103,17 @@ const QueryFormPage = (props) => {
             setMessage(message)
             return
         } 
-        
-        let requestUrl;
-        let pushUrl;
-        if (seqType === "Protein Sequence") {
-            requestUrl = config.queryApiUrl + "/sls-query-prot-s3";
-            pushUrl = '/proteinquery/' + seq;
-        } else {
-            requestUrl = config.queryApiUrl + "/sls-query-dna-s3";
-            pushUrl = '/dnaquery/' + seq;            
-        }
+
+        const pushUrl = seqType === "Protein Sequence"
+            ? '/proteinquery/' + seq
+            : '/dnaquery/' + seq
+
         const params = {
-            "query": seq
+            "query": seq,
+            "sequenceType": seqType === "Protein Sequence" ? "protein" : "dna"
         }
-        AxiosGetAndPush(params, requestUrl, pushUrl, props.history).then( res => {
+
+        QuerySequence(params, requestUrl, pushUrl, props.history).then( res => {
             setLoading(false);
             setShowMessage(true);
             setMessage(res.message);

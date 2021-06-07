@@ -2,7 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./src"
     },
-    "queryApiUrl": "https://pgrz0nz0j6.execute-api.us-east-1.amazonaws.com/dev/sls-retrobase-dev",
+    "queryApiUrl": "https://rdh8y7tvqj.execute-api.us-east-1.amazonaws.com/dev/sls-retrobase-dev",
     "websiteUrl": "http://localhost:3000/",
     "auth0Audience": "https://sls-retrobase",
     "auth0Domain": "dev-y33gimcf.eu.auth0.com",

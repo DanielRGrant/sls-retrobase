@@ -2,6 +2,15 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+const GetObject = async () => {
+    const requestUrl = 'https://8fx9day74b.execute-api.us-east-1.amazonaws.com/dev/presigned-put-object'
+    const resp = await axios.get(requestUrl, {"params": {"query": "A", "sequenceType": "dna"}})
+    const presignedUrl = resp.data.body
+    console.log(presignedUrl)
+    const data = await fetch([presignedUrl])
+    .then(response => response.text())
+    .then(text => console.log(text))
+}
 
 
 const HomePage = () => {
@@ -9,6 +18,7 @@ const HomePage = () => {
             <section className="home-page">
                 <div className="box">
                 <div className="title-section">
+                    <button onClick={GetObject}>Press Me Boy</button>
                         <h1>Retrobase</h1>
                             <p>Retrobase is a database of retrotransposon DNA sequences acquired from UCSC Table Browser and proteins translated <i>in silico</i> from these sequences. All protein name labels are predicted using psi-BLAST. Retrobase serves to make these sequences queriable aid in identification of retroviral sequences in proteomic assays. </p>
                         <h3>The Purpose of The Project</h3>
