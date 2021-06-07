@@ -10,7 +10,7 @@ const config = require('../../jsconfig.json')
 
 
 const QuerySequence = async (params, requestUrl, pushUrl, history) => {
-    const requestUrlTmp = 'https://8fx9day74b.execute-api.us-east-1.amazonaws.com/dev/presigned-put-object'
+    const requestUrlTmp = `${config.queryApiUrl}/sls-query-sequences-s3`
     const resp = await axios.get(requestUrlTmp, { params: params })
     const presignedUrl = resp.data.body
     const response = await fetch(presignedUrl)
