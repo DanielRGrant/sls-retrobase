@@ -59,6 +59,10 @@ h2 {
   width: 80%
 }
 
+.cursorpointer {
+  cursor: pointer
+}
+
 .wrapped {
   overflow-wrap: break-word;
 }
@@ -93,21 +97,28 @@ h2 {
 }
 
 .infoBox {
-  width: 300px;
+  min-width: 300px;
+  width: fit-content;
   padding: 30px;
   background-color:hsl(216, 81%, 94%);
   border: 2px solid rgba(0, 0, 0, 0.472);
   border-radius: 5px;
-  margin-bottom: 5px
+  margin-bottom: 10px;
+  text-align: left
 }
 .infoBox h3 {
-  font-size: 1.7rem
+  font-size: 1.7rem;
+  padding-left: 2rem
 }
 .infoBox th {
   width: 70px
 }
 .infoBox tr:nth-child(even) {
   background-color:hsl(216, 81%, 94%)
+}
+
+.infoBox td {
+  word-break: break-all
 }
 
 /* navbar */
@@ -346,12 +357,16 @@ section.TeResultsPage .query-filters-box select {
   max-width: 150px
 }
 
+.querytable {
+  overflow-x: scroll
+}
+
 .querytable table {
     font-size: 1rem;
     border-collapse: collapse;
     width: 100%;
-    border-top: solid black 1px;;
-    border-bottom: solid black 1px;;
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
 }
 
 .nowrap {
@@ -400,7 +415,6 @@ section.TeResultsPage .query-filters-box select {
 table {
   border-collapse:collapse;
   padding:0px;
-
 }
 
 .sequenceid {
@@ -493,8 +507,13 @@ section.home-page .text-boxes .text-section h2 {
   cursor: pointer;
 }
 
+.PageNumberLinks.active:hover {
+  text-decoration: none;
+  cursor: default;
+}
+
 .PageNumberLinks.active {
-  color: red
+  color: red;
 }
 
 .page-numbers-container {

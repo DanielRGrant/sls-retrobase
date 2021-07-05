@@ -1,5 +1,4 @@
 const ErrorPage = (props) => {
-    console.log(props)
     return(
         <section>
             <div className="box">

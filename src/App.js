@@ -1,40 +1,35 @@
 import './App.css';
 
-import { useEffect, useState } from 'react'
 
 // Authentication
 import Auth0ProviderWithHistory from "./components/Auth/auth0-provider-with-history";
 import LoggedOut from './components/Auth/LoggedOut'
 
 // Error handling
-import { ErrorBoundary } from 'react-error-boundary'
 import RouteWithErrorBoundary from './components/RouteWithErrorBoundary'
-import DetailErrorFallback from './components/ErrorFallbacks/DetailErrorFallback'
 import NotFound from './components/NotFound'
-
 
 // Components
 import HomePage from './components/HomePage';
 import AccountPage from './components/AccountPage/AccountPage';
-import TeResultsPage from './components/TeResultsPage';
-import DnaSearchResults from './components/QueryResultsTables/DnaSearchResults';
-import ProteinSearchResults from './components/QueryResultsTables/ProteinSearchResults';
-import Navbar from './components/Navbar';
-import NavbarSearchResults from './components/NavbarSearchResults'
+import TeResultsPage from './components/TeResultsPage/TeResultsPage';
+import QueryResults from './components/QueryResultsTables/QueryResults';
+import Navbar from './components/Navbar/Navbar';
+import NavbarSearchResults from './components/NavbarSearchResults/NavbarSearchResults'
 import QueryFormPage from './components/QueryFormPage/QueryFormPage';
 import FileUploadSuccess from './components/QueryFormPage/FileUploadSuccess';
-import ClassDetail from './components/detailsPages/ClassDetail';
-import FamilyDetail from './components/detailsPages/FamilyDetail';
-import ProteinNameDetail from './components/detailsPages/ProteinNameDetail';
-import ProteinRecordDetail from './components/detailsPages/ProteinRecordDetail';
-import DnaDetail from './components/detailsPages/DnaDetail';
+import ClassDetail from './components/detailsPages/ClassDetailPage/ClassDetail';
+import FamilyDetail from './components/detailsPages/FamilyDetail/FamilyDetail';
+import ProteinNameDetail from './components/detailsPages/ProteinNameDetail/ProteinNameDetail';
+import ProteinRecordDetail from './components/detailsPages/ProteinRecordDetail/ProteinRecordDetail';
+import DnaDetail from './components/detailsPages/DnaDetail/DnaDetail';
 import TeContainer from './components/TissueExpression/TeContainer';
 import Documentation from './components/Documentation';
 import ErrorPage from './components/ErrorPage';
 
 
 // React Routing
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import ProtectedRouteWithErrorBoundary from './components/Auth/ProtectedRouteWithErrorBoundary'
 
 
@@ -55,8 +50,7 @@ function App() {
           <RouteWithErrorBoundary path="/predictedprotein/:protein_id" component={ProteinRecordDetail} />
           <RouteWithErrorBoundary exact path="/query" component={QueryFormPage} />
           <RouteWithErrorBoundary path="/filesentsuccess" component={FileUploadSuccess} />
-          <RouteWithErrorBoundary path="/proteinquery/:query" component={ProteinSearchResults} />
-          <RouteWithErrorBoundary path="/dnaquery/:query" component={DnaSearchResults} />
+          <RouteWithErrorBoundary path="/queryresults/:seqtype/:query" component={QueryResults} />
           <RouteWithErrorBoundary path="/searchresults/:search" component={NavbarSearchResults} />
 
           <RouteWithErrorBoundary path="/tissueexpression" component={TeContainer}/>

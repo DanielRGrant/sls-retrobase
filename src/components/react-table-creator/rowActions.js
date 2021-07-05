@@ -1,1 +1,0 @@
-create class that stores row values for action functions

@@ -1,114 +1,178 @@
 import axios from 'axios';
-import React, { useState, useEffect  }from 'react';
-import { useHistory} from "react-router-dom";
+const config = require('../../jsconfig.json');
 
-/*export const UseSubmitFile = async (event, metadata, jwt, bucketUrl, presignedRequestUrl) => {
-    //Make filename key
+export const ValidateSequence = ({ query, seqType, setShowMessage, setMessage }) => {
+    var message = ""
+    var valid = false
+    var seq = query.toUpperCase();
+    const invalidCharMsg = "Sequence contains invalid characters."
+
+    switch (seqType) {
+        case "dna":
+            if (RegExp("^[ATGC]+$").test(seq)) {
+                message = invalidCharMsg
+                valid = true
+            }
+            break
+        case "protein":
+            if ( RegExp("^[ABCDEFGHIKLMNPQRSTUVWXYZ]+$").test(seq) ) {
+                message = invalidCharMsg
+                valid = true
+            }
+            break
+        default:
+            message = "Invalid sequence type"
+    };
+    return { message, valid }
+};
 
 
-    const SubmitFormParams = {
+export const QuerySequence = async ({data, query, seqType, requestUrl, history}) => {
+    const pushUrl = `/queryresults/${seqType}/${query}`
+    const params = {
+        "query": query,
+        "sequenceType": seqType
+    }
+
+    const resp = await axios.get(requestUrl, { params: params })
+    if (resp.data) {
+        history.push(
+            {
+                pathname: pushUrl,
+                state: { "data": resp.data.body }
+            }
+        )
+    }
+
+    return {
+        success: true,
+        message: "No error"
+    }
+}
+
+export const useSubmitSequence = ({
+    e, 
+    setLoading, 
+    setShowMessage, 
+    setMessage, 
+    setLoadingBoxMessage, 
+    setLoadingBoxTitle, 
+    history
+}) => {
+    e.preventDefault()
+    setLoading(true);
+    setLoadingBoxMessage("Query in progress. Please do not refresh...")
+    setLoadingBoxTitle("Querying Sequence")
+
+    const seqType = e.target.sequenceType.value;
+    const query = e.target.query.value;
+
+    const requestUrl = config.queryApiUrl + "/query-sequences-s3";
+    const { valid, message } = ValidateSequence({ query, seqType, setLoading, setShowMessage, setMessage })
+    if (!valid) {
+        setMessage(message)
+        setShowMessage(true)
+        setLoading(false)
+        return
+    }
+
+    QuerySequence({query, seqType, requestUrl, history}).catch(res => {
+        if (res){
+            setLoading(false);
+            setShowMessage(true);
+            setMessage(res.message);
+        };
+    })
+};
+
+export const QueryFile = async ({ metadata, formData, accessToken, getPresignedUrlUrl, history, pushUrl }) => {
+
+    const requestPayload = {
         "headers": {
-            "Authorization": jwt
+            Authorization: `Bearer ${accessToken}`,
         },
         "params": metadata
     }
 
-/*const metadata = {
-    "username": props.user.username
-}
-props.user.signInUserSession.idToken.jwtToken
-https://kvuhomev06.execute-api.us-east-1.amazonaws.com/dev/get-s3-presigned-url
+    if (!formData.file) {
+        return {
+            success: false,
+            message: "Please select a file"
+        }
+    }
 
+    if (metadata.uploadTe === "Yes" && (!metadata.tissue || !metadata.researcher || (metadata.published === "Yes" && !metadata.publication))) {
+        return {
+            success: false,
+            message: "You have missed some form fields"
+        }
+    }
     try {
-        setLoading(true)
-        const response = await axios.get(bucketUrl, SubmitFormParams)
-        console.log("Collected presigned url")
-        const signedURL = response.data.url
-
+        const response = await axios.get(getPresignedUrlUrl, requestPayload)
+        const signedURL = JSON.parse(response.data.body).url
         //rename file to key for presigned upload
-        Object.defineProperty(file, 'name', {
+        Object.defineProperty(formData.file, 'name', {
             writable: true,
             value: response.data.key
         });
-        console.log(signedURL, "sending file")
-        const axiosResponse = await axios.put(signedURL, file);
-        console.info(axiosResponse)
-
+        await axios.put(signedURL, formData.file)
+        history.push("/filesentsuccess")
         return {
-            "status": 200,
-            "message": "File Sent"
+            success: true,
+            message: "Success!"
         }
-
     } catch (error) {
-        setLoading(false)
-
-        setError(true);
-        setErrorMessage("Authorization to upload data not granted")
-    } finally {
-
-    }
-}
-*/
-
-
-
-export const ValidateSequence = (seq, seqType) => {
-    var message = {
-        valid: true,
-        message: ""
-    }
-
-    const invalidCharMsg = {
-        valid: false,
-            message: "Sequence contains invalid characters."
-    }
-
-    seq = seq.toUpperCase();
-    if (seqType === "DNA Sequence") {
-        message= (
-            RegExp("^[ATGC]+$").test(seq) 
-                ? message
-                : invalidCharMsg
-        )
-    } else if (seqType === "Protein Sequence") {
-        message = (
-            RegExp("^[ABCDEFGHIKLMNPQRSTUVWXYZ]+$").test(seq) 
-                ? message
-                : invalidCharMsg
-        );
-    } else {
-        message = (
-            {
-                valid: false,
-                message: "Invalid seqType"
-            }
-        );
-    };
-    return message
-};
-
-
-/*const AsyncAxiosGetAndPush = async (submitUrl, pollUrl, pushUrl, submitParams) => {
-
-        const response1 = await axios.get(submitUrl, { params: submitParams })
-
-
-    const token = response1.data.body.token
-
-
-    while (true) {
-        const response2 = await axios.get(pollUrl, { params: { "token": token } })
-        if (response2.data.statusCode === 200) {
-            props.history.push(
-                {
-                    pathname: pushUrl,
-                    state: { "data": JSON.stringify(response2.data) }
-                }
-            )
-            break
-        } else {
-            await delay(5000);
+        return {
+            success: false,
+            message: "Network Error"
         }
     }
 }
-*/
+
+export const useSubmitFile = async ({
+    e, 
+    metadata, 
+    file, 
+    setLoading, 
+    setLoadingBoxTitle, 
+    setLoadingBoxMessage, 
+    setShowMessage, 
+    setMessage, 
+    history,
+    isAuthenticated, 
+    getAccessTokenSilently, 
+    user, 
+    loginWithRedirect
+}) => {
+    e.preventDefault()
+
+    if (!isAuthenticated) {
+        loginWithRedirect()
+        return
+    } else {
+        setLoading(true);
+        setLoadingBoxTitle("Submitting File")
+        setLoadingBoxMessage("Your file is being submitted. Please do not refresh...")
+
+        const accessToken = await getAccessTokenSilently({
+            audience: `https://sls-retrobase`,
+            scope: "get:data",
+        });
+
+        metadata = {...metadata, user }
+
+        const formData = { file }
+
+        const getPresignedUrlUrl = `${config.queryApiUrl}/requestpresignedurls3`
+        const pushUrl = "/filesentsuccess"
+
+        QueryFile({ metadata, formData, accessToken, getPresignedUrlUrl, history, pushUrl })
+            .then(resp => {
+                if (!resp.success) {
+                    setLoading(false)
+                    setShowMessage(true)
+                    setMessage(resp.message)
+                }
+            })
+    }
+}

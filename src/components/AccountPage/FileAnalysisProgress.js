@@ -1,43 +1,61 @@
-import { fetchPageData } from "../../functions/functions"
-const config = require('../../jsconfig.json')
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { fetchData, deleteFileData, delayFetchData, addTokenToActionFunction } from './functions'
+import { useAuth0 } from "@auth0/auth0-react";
+import useTableScript from '../TableClientSideProcess/react-table-creator';
+import useFilters from '../TableClientSideProcess/react-table-filters';
+import { colParams } from './params'
 
 
-const fetchData = async function (token, history, setData) {
-    const accountRequestInput = {
-        headersParams: {
-            "params": {},
-            "headers": {
-                Authorization: `Bearer ${token}`,
-            }
-        },
-        requestUrl: `${config.queryApiUrl}/mzid-check-progress/`,
-        errorUrl: "/error",
-        history: history
-    }
-    const data = await fetchPageData(accountRequestInput)
-    if (data) setData(data.body)
-}
+const useFileAnalysisProgress = ({setIsData, setLoading}) => {
+    const { user, getAccessTokenSilently } = useAuth0();
+    const [data, setData] = useState([]);
+    const [token, setToken] = useState(null)
+    const history = useHistory()
+    const [rowActions, setRowActions] = useState([])
 
-const FileAnalysisProgress = (props) => {
+    useEffect(() => {
+        getAccessTokenSilently().then(
+            token => setToken(token)
+        )
+    }, [user]);
+    useEffect(() => {
+        if (user && token) {
+            const deleteFileDataActionFunction = addTokenToActionFunction(token, deleteFileData)
+            console.log(deleteFileDataActionFunction)
+            setRowActions({
+                "Delete Data": {
+                    "function": deleteFileDataActionFunction,
+                    "columnHeader": "file_id",
+                    "onCompleteFunction": () => delayFetchData({ token, history, setData, setIsData, setLoading })
+                }
+            })
+            fetchData({ token, history, setData, setIsData, setLoading })
+        }
+    }, [user, token]);
+
+    var { filteredData, filters } = useFilters({ data, colParams })
+    var { dataTable, pageLinks, itemsPerPage, actionButtons } = useTableScript({ "tableData": filteredData, colParams, rowActions })
 
     return (
         <div>
+            <>{filters}</>
             <div>
-                <>{props.actionsMenu}</>
+                <>{actionButtons}</>
                 <button 
-                    onClick={() => fetchData(props.token, props.history, props.setData)}
+                    onClick={() => fetchData({ token, history, setData, setIsData, setLoading })}
                 >
                     Refresh
                 </button>
             </div>
             <div className="querytable">
-                {props.dataTable}
+                {dataTable}
             </div>
-            <div className="page-numbers-container">{props.pageLinks}</div>
-            <span>Items per page: {props.itemsPerPage}</span>
+            <div className="page-numbers-container">{pageLinks}</div>
+            <span>Items per page: {itemsPerPage}</span>
         </div>
     )
 }
 
 
-export default FileAnalysisProgress
+export default useFileAnalysisProgress
