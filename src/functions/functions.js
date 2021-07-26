@@ -44,7 +44,6 @@ export const AxiosGetAndPush = async (params, requestUrl, pushUrl, history) => {
 // Wait x amount of miliseconds before next line
 export const delay = ms => new Promise(res => setTimeout(res, ms));
 
-
 export const fetchPageData = async ({ headersParams, requestUrl, errorUrl, history}) => {
     try {
         const res = await axios.get(

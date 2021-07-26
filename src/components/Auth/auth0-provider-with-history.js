@@ -11,13 +11,13 @@ const Auth0ProviderWithHistory = ({ children }) => {
     const onRedirectCallback = (appState) => {
         var returnTo = appState?.returnTo
         returnTo = (
-            returnTo.startsWith('/dnaquery') || returnTo.startsWith('/protquery')
+            returnTo.startsWith('/queryresults')
                 ? '/query' 
                 : returnTo
         )
 
         returnTo = (
-            returnTo==='/loggedout' || (!returnTo)
+            returnTo === '/loggedout' || (!returnTo)
                 ? '/' 
                 : returnTo
         )

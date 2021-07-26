@@ -1,26 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getHtmlRowFieldByIndex, createLinkItem } from './functions'
+import downArrowBlack from '../../../assets/downArrowBlack.png'
+import upArrowBlack from '../../../assets/upArrowBlack.png'
 
 
-export function createLinkItem(fieldValue, columnHeader, columnsHaveLinks) {
-    let linkPathEnd = columnsHaveLinks[columnHeader]["linkPathUseSelf"]
-        ? fieldValue
-        : fieldValue[1];
-
-    let fieldValueFIN = Array.isArray(fieldValue)
-        ? fieldValue[1]
-        : fieldValue
-    return <Link to={columnsHaveLinks[columnHeader]["basePath"] + linkPathEnd}>{fieldValueFIN}</Link>
-}
-
-const getHtmlRowFieldByIndex = (e, index) => {
-    console.log(e.currentTarget)
-    var rowNodes = e.currentTarget.parentNode.parentNode.childNodes
-    var field = rowNodes[index].lastChild.innerHTML
-    return field
-}
-
-const useTableScript = ({ tableData, colParams, numPageNumbers = 11, rowActions = null, sortByFun }) => {
+const useTableScript = ({ tableData, colParams, numPageNumbers = 11, rowActions = null, sortByFun, sortBy }) => {
     const [actionString, setActionString] = useState(null)
     const { columnsHaveLinks, customColumns, columnHeaders, columnHeadersFinal } = colParams
     if (!columnHeaders) {
@@ -38,7 +23,7 @@ const useTableScript = ({ tableData, colParams, numPageNumbers = 11, rowActions 
         setActionString(actionStringTmp)
     }
 
-    const handleSortBy = e => sortByFun(e)
+    const handleSortBy = sortByFun ? e => sortByFun(e) : undefined
 
     var rowList = [] // collect table rows
     // iteratively create table rows
@@ -95,9 +80,15 @@ const useTableScript = ({ tableData, colParams, numPageNumbers = 11, rowActions 
         rowList.push(<tr>{rowScript}</tr>)
     }
 
-    const headers = columnHeadersFinal ? columnHeadersFinal : columnHeaders // use key values if not columnHeadersFinal input
-    const headersScript = headers.map(header => {
-        return <th scope="column" onClick={handleSortBy}>{header}</th>
+    const arrow = sortBy.desc ? downArrowBlack : upArrowBlack
+    const headers = columnHeadersFinal ? columnHeadersFinal : columnHeaders // use key values if columnHeadersFinal input
+    const headersScript = headers.map((header, i) => {
+        return (
+            <th scope="column" onClick={e => handleSortBy(e)} className="nowrap cursorpointer">
+                {header}
+                {columnHeaders[i] === sortBy.col && <img src={arrow} alt=""/>}
+            </th> 
+        )
     })
     if (rowActions) headersScript.unshift(<th></th>) //include empty column header for row select
 

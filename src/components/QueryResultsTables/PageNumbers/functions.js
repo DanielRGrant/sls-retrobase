@@ -41,7 +41,8 @@ export const getPage = async (e, {currentPage, key, filters, setRespData, sortBy
             "page": newPage,
             "key": key,
             ...filters,
-            "sort_by": sortBy
+            "sort_by": sortBy.col,
+            "desc": sortBy.desc
         }
     }
     setLoading(true)

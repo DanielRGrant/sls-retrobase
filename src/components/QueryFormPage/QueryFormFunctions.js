@@ -85,16 +85,8 @@ export const useSubmitSequence = ({
     })
 };
 
-export const QueryFile = async ({ metadata, formData, accessToken, getPresignedUrlUrl, history, pushUrl }) => {
-
-    const requestPayload = {
-        "headers": {
-            Authorization: `Bearer ${accessToken}`,
-        },
-        "params": metadata
-    }
-
-    if (!formData.file) {
+export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUrl, history, pushUrl }) => {
+    if (!file) {
         return {
             success: false,
             message: "Please select a file"
@@ -107,15 +99,26 @@ export const QueryFile = async ({ metadata, formData, accessToken, getPresignedU
             message: "You have missed some form fields"
         }
     }
+
+    const requestPayload = {
+        "headers": {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        "params": {
+            ...metadata,
+            "file_name": file.name
+        }
+    }
+
     try {
         const response = await axios.get(getPresignedUrlUrl, requestPayload)
         const signedURL = JSON.parse(response.data.body).url
         //rename file to key for presigned upload
-        Object.defineProperty(formData.file, 'name', {
+        Object.defineProperty(file, 'name', {
             writable: true,
             value: response.data.key
         });
-        await axios.put(signedURL, formData.file)
+        await axios.put(signedURL, file)
         history.push("/filesentsuccess")
         return {
             success: true,
@@ -147,7 +150,7 @@ export const useSubmitFile = async ({
     e.preventDefault()
 
     if (!isAuthenticated) {
-        loginWithRedirect()
+        loginWithRedirect({ appState: { returnTo: window.location.pathname } })
         return
     } else {
         setLoading(true);
@@ -159,14 +162,12 @@ export const useSubmitFile = async ({
             scope: "get:data",
         });
 
-        metadata = {...metadata, user }
-
-        const formData = { file }
+        metadata = {...metadata }
 
         const getPresignedUrlUrl = `${config.queryApiUrl}/requestpresignedurls3`
         const pushUrl = "/filesentsuccess"
 
-        QueryFile({ metadata, formData, accessToken, getPresignedUrlUrl, history, pushUrl })
+        QueryFile({ metadata, file, accessToken, getPresignedUrlUrl, history, pushUrl })
             .then(resp => {
                 if (!resp.success) {
                     setLoading(false)

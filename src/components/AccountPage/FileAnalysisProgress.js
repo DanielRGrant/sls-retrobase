@@ -35,8 +35,7 @@ const useFileAnalysisProgress = ({setIsData, setLoading}) => {
     }, [user, token]);
 
     var { filteredData, filters } = useFilters({ data, colParams })
-    var { dataTable, pageLinks, itemsPerPage, actionButtons } = useTableScript({ "tableData": filteredData, colParams, rowActions })
-
+    var { dataTable, pageNumbers, itemsPerPageSelect, actionButtons } = useTableScript({ "tableData": filteredData, colParams, rowActions })
     return (
         <div>
             <>{filters}</>
@@ -51,8 +50,8 @@ const useFileAnalysisProgress = ({setIsData, setLoading}) => {
             <div className="querytable">
                 {dataTable}
             </div>
-            <div className="page-numbers-container">{pageLinks}</div>
-            <span>Items per page: {itemsPerPage}</span>
+            <div className="page-numbers-container">{pageNumbers}</div>
+            <span>Items per page: {itemsPerPageSelect}</span>
         </div>
     )
 }

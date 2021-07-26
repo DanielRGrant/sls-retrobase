@@ -31,7 +31,7 @@ const QueryFormPage = (props) => {
     const [inputType, setInputType] = useState(props.location.state?.uploadTe ? "file" : "sequence");
     const [uploadTe, setUploadTe] = useState("Yes");
     const { isAuthenticated, getAccessTokenSilently, user, loginWithRedirect } = useAuth0();
-
+    const loginWithRedirectWithAppState = () => loginWithRedirect({ appState: { returnTo: window.location.pathname } })
     // event handlers
     const onInputTypeChange = (e) => {
         setInputType(e.target.value)
@@ -93,7 +93,7 @@ const QueryFormPage = (props) => {
         isAuthenticated,
         getAccessTokenSilently,
         user,
-        loginWithRedirect
+        loginWithRedirectWithAppState
     })
 
     const fileInputMetaDataField = renderFileInputMetaDataField({
@@ -107,7 +107,7 @@ const QueryFormPage = (props) => {
 
     const sequenceInputFields = renderSequenceInputFields()
     const fileInputFields = renderFileInputFields({ FormGetFile, uploadTe, onUploadTeChange, fileInputMetaDataField })
-    const mustLoginInlineMessage = renderMustLoginInlineMessage({ loginWithRedirect, inputType, isAuthenticated})
+    const mustLoginInlineMessage = renderMustLoginInlineMessage({ loginWithRedirectWithAppState, inputType, isAuthenticated})
 
     const queryForm = (
         <section className = "queryForm" >

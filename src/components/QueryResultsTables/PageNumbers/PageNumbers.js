@@ -11,7 +11,7 @@ const usePageNumbers = ({ respData, setRespData, filters, sortBy, setLoading}) =
     const [start, end] = startEndPaginateLinks({pagesCutOff: 11, numPages: Number(respData.num_pages), currentPage: Number(respData.page)})
 
     
-    const pageNumbers =  usePageNumbersScript({ start, end, currentPage: Number(respData.page), getPage: getPageHandler })
+    const pageNumbers =  usePageNumbersScript({ start, end, currentPage: Number(respData.page), getPage: getPageHandler, numPages: respData.num_pages })
     return (
         respData.num_items 
             ? pageNumbers

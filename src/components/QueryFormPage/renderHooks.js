@@ -114,14 +114,14 @@ export const renderSequenceInputFields = () => {
 }
 
 
-export const renderMustLoginInlineMessage = ({ loginWithRedirect, inputType, isAuthenticated}) => {
+export const renderMustLoginInlineMessage = ({ loginWithRedirectWithAppState, inputType, isAuthenticated}) => {
     return (
         <InlineMessage
             show={
                 inputType === "file" && !isAuthenticated
             }
             success={false} message={
-                <span>User must <span className="PageNumberLinks" onClick={loginWithRedirect}>log in</span> to submit file</span>
+                <span>User must <span className="PageNumberLinks" onClick={loginWithRedirectWithAppState}>log in</span> to submit file</span>
             }
         />
     )

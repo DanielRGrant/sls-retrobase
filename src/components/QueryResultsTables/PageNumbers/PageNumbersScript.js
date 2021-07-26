@@ -1,4 +1,4 @@
-const usePageNumbersScript = ({start, end, currentPage, getPage}) => {
+const usePageNumbersScript = ({start, end, numPages,currentPage, getPage}) => {
     var pageLinks = []
     for (var a = start; a <= end; a++) {
         pageLinks.push(
@@ -13,24 +13,41 @@ const usePageNumbersScript = ({start, end, currentPage, getPage}) => {
     }
     if (currentPage !== 1) {
         pageLinks.unshift(
-            <li
-                className="PageNumberLinks pagination-link"
-                id={"prev"}
+            <>
+                <li
+                className="PageNumberLinks pagination-link" id={start}
                 onClick={(e) => getPage(e)}
-            >
-                Prev
-            </li>
+                >
+                    Start
+                </li>   
+                <li
+                    className="PageNumberLinks pagination-link"
+                    id={"prev"}
+                    onClick={(e) => getPage(e)}
+                >
+                    Prev
+                </li>
+            </>
         )
     }
     if (currentPage !== end) {
         pageLinks.push(
-            <li
-                className="PageNumberLinks pagination-link" id={"next"}
+            <>
+                <li
+                    className="PageNumberLinks pagination-link" id={"next"}
+                    onClick={(e) => getPage(e)}
+                >
+                    Next
+                </li> 
+                <li
+                className="PageNumberLinks pagination-link" id={numPages}
                 onClick={(e) => getPage(e)}
-            >
-                Next
-            </li>
+                >
+                    End
+                </li>        
+            </>   
         )
+        
     }
     return pageLinks
 }
