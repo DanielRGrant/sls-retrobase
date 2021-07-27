@@ -5,7 +5,7 @@ export const colParams = {
         "file_name",
         "file_id",
         "progress",
-        "num_peptides",
+        "num_matched",
         "submitted"
     ],
     columnsHaveLinks: {},

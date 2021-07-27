@@ -16,6 +16,7 @@ export const fetchData = async function ({ token, history, setData, setLoading, 
         errorUrl: "/error",
         history: history
     })
+    console.log(data.body)
     if (data.body.length) {
         setData(data.body)
         setIsData(true)
