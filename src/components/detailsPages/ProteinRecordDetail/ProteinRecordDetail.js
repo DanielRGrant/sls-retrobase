@@ -64,7 +64,7 @@ const ProteinRecordDetail = (props) => {
                     <p class="wrapped nokern">{sequence}</p>
 
                     <h1>Predicted Proteins</h1>
-                    <p>Note: protein prediction was done using psi-blast. This detects distantly related sequences and can potentially detect sequencs related to adjacent sequences. Discretion is advised.</p>
+                    <p>Note: protein prediction was done using psi-blast. This detects distantly related sequences and can potentially detect sequences related to chromosomally adjacent sequences. Discretion is advised.</p>
                     <div>
                         {proteinFunctions}
                     </div>

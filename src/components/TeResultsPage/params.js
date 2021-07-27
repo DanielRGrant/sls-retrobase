@@ -10,15 +10,15 @@ export const colParams = {
     ],
     columnsHaveLinks: {
         "protein": {
-            "basePath": "protein",
+            "basePath": "knownprotein",
             "linkPathUseSelf": true
         },
         "prot_id": {
-            "basePath": "prot_id",
+            "basePath": "predictedprotein",
             "linkPathUseSelf": true
         },
         "dna_id": {
-            "basePath": "dna_id",
+            "basePath": "dna",
             "linkPathUseSelf": true
         },
         "class": {

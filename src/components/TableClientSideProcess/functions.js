@@ -39,7 +39,8 @@ export function createLinkItem(fieldValue, columnHeader, columnsHaveLinks) {
     let fieldValueFIN = Array.isArray(fieldValue)
         ? fieldValue[1]
         : fieldValue
-    return <Link to={columnsHaveLinks[columnHeader]["basePath"] + linkPathEnd}>{fieldValueFIN}</Link>
+    
+    return <Link to={`/${columnsHaveLinks[columnHeader]["basePath"]}/${linkPathEnd}`}>{fieldValueFIN}</Link>
 }
 
 export function paginateList(arr, size) {
