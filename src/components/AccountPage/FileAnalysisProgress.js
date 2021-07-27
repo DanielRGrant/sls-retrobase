@@ -38,7 +38,6 @@ const useFileAnalysisProgress = ({setIsData, setLoading}) => {
     var { dataTable, pageNumbers, itemsPerPageSelect, actionButtons } = useTableScript({ "tableData": filteredData, colParams, rowActions })
     return (
         <div>
-            <>{filters}</>
             <div>
                 <>{actionButtons}</>
                 <button 

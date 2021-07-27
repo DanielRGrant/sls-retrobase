@@ -85,7 +85,7 @@ export const useSubmitSequence = ({
     })
 };
 
-export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUrl, history, pushUrl }) => {
+export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUrl }) => {
     if (!file) {
         return {
             success: false,
@@ -119,7 +119,6 @@ export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUr
             value: response.data.key
         });
         await axios.put(signedURL, file)
-        history.push("/filesentsuccess")
         return {
             success: true,
             message: "Success!"
@@ -132,6 +131,12 @@ export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUr
     }
 }
 
+const checkFileExtension = ( fname ) => {
+    const spl = fname.split(".")
+    const ext = spl[spl.length + 1]
+    return ext in ["zip", "gz"]
+}
+
 export const useSubmitFile = async ({
     e, 
     metadata, 
@@ -141,13 +146,26 @@ export const useSubmitFile = async ({
     setLoadingBoxMessage, 
     setShowMessage, 
     setMessage, 
-    history,
+    setSubmitted,
     isAuthenticated, 
     getAccessTokenSilently, 
-    user, 
     loginWithRedirect
 }) => {
     e.preventDefault()
+
+    try {
+        if ( !checkFileExtension( file.name ) ) {
+            setLoading(false)
+            setShowMessage(true)
+            setMessage("File must be .gz or .zip")
+            return
+        }        
+    } catch {
+        setLoading(false)
+        setShowMessage(true)
+        setMessage("Please choose a file to submit")
+        return
+    }
 
     if (!isAuthenticated) {
         loginWithRedirect({ appState: { returnTo: window.location.pathname } })
@@ -165,11 +183,13 @@ export const useSubmitFile = async ({
         metadata = {...metadata }
 
         const getPresignedUrlUrl = `${config.queryApiUrl}/requestpresignedurls3`
-        const pushUrl = "/filesentsuccess"
 
-        QueryFile({ metadata, file, accessToken, getPresignedUrlUrl, history, pushUrl })
+        QueryFile({ metadata, file, accessToken, getPresignedUrlUrl })
             .then(resp => {
-                if (!resp.success) {
+                if (resp.success) {
+                    setSubmitted(true)
+                    setLoading(false)
+                } else {
                     setLoading(false)
                     setShowMessage(true)
                     setMessage(resp.message)

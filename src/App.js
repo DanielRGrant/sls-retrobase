@@ -17,7 +17,6 @@ import QueryResults from './components/QueryResultsTables/QueryResults';
 import Navbar from './components/Navbar/Navbar';
 import NavbarSearchResults from './components/NavbarSearchResults/NavbarSearchResults'
 import QueryFormPage from './components/QueryFormPage/QueryFormPage';
-import FileUploadSuccess from './components/QueryFormPage/FileUploadSuccess';
 import ClassDetail from './components/detailsPages/ClassDetailPage/ClassDetail';
 import FamilyDetail from './components/detailsPages/FamilyDetail/FamilyDetail';
 import ProteinNameDetail from './components/detailsPages/ProteinNameDetail/ProteinNameDetail';
@@ -49,7 +48,6 @@ function App() {
           <RouteWithErrorBoundary path="/dna/:dna_id" component={DnaDetail} />
           <RouteWithErrorBoundary path="/predictedprotein/:protein_id" component={ProteinRecordDetail} />
           <RouteWithErrorBoundary exact path="/query" component={QueryFormPage} />
-          <RouteWithErrorBoundary path="/filesentsuccess" component={FileUploadSuccess} />
           <RouteWithErrorBoundary path="/queryresults/:seqtype/:query" component={QueryResults} />
           <RouteWithErrorBoundary path="/searchresults/:search" component={NavbarSearchResults} />
 

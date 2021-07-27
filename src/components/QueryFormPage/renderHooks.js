@@ -126,3 +126,56 @@ export const renderMustLoginInlineMessage = ({ loginWithRedirectWithAppState, in
         />
     )
 }
+
+export const renderQueryForm = ({
+    mustLoginInlineMessage,
+    inputType,
+    useHandleSubmitSequence,
+    useHandleSubmitFile,
+    onInputTypeChange,
+    sequenceInputFields,
+    fileInputFields,
+    message,
+    showMessage
+}) => {
+    return (
+        <section className="queryForm" >
+            <div className="box queryForm">
+                <div className="container">
+                    <div className="smallertext">
+                        <h1>Query sequences against the Retrobase database</h1>
+                        <InlineMessage show={showMessage} success={false} message={message} />
+                        {mustLoginInlineMessage}
+                        <form onSubmit={inputType === "sequence" ? useHandleSubmitSequence : useHandleSubmitFile}>
+                            <table class="queryFormTable">
+                                <tbody>
+                                    <tr>
+                                        <th>Input Type: </th>
+                                        <td>
+                                            <span className="nowrap" style={{ "paddingRight": "4rem" }}>
+                                                <label for="sequence">Manually enter sequence: </label><input type="radio" value="sequence" name="inputType" checked={inputType === "sequence"} onChange={onInputTypeChange}></input>
+                                            </span>
+                                            <span className="nowrap">
+                                                <label for="file">MZID File: </label><input type="radio" value="file" name="inputType" checked={inputType === "file"} onChange={onInputTypeChange}></input>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {inputType === "sequence" ? sequenceInputFields : fileInputFields}
+                                    <tr>
+                                        <button>Submit</button>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div>
+                        <h2>About Query</h2>
+                        <p>The Retrobase Query tool performs exact matching of query sequences to sequences in the database. Currently BLAST algorithms are not available.</p>
+                        <p>Note: To experiment, you can simply enter the character "A", select either Protein Sequence or Dna Sequence and submit.</p>
+                    </div>
+
+                </div>
+            </div >
+        </section>
+    )
+}
