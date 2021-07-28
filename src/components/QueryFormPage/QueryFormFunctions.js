@@ -133,8 +133,9 @@ export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUr
 
 const checkFileExtension = ( fname ) => {
     const spl = fname.split(".")
-    const ext = spl[spl.length + 1]
-    return ext in ["zip", "gz"]
+    const ext = spl[spl.length - 1]
+    console.log(["zip", "gz"].includes(ext))
+    return ["zip", "gz"].includes(ext)
 }
 
 export const useSubmitFile = async ({
