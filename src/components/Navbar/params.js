@@ -1,3 +1,6 @@
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick"
+import { v4 as uuid } from 'uuid';
+
 // dropdown options
 export const toolOptions = [
     {

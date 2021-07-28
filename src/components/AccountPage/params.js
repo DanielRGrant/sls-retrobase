@@ -1,4 +1,4 @@
-import { customClasses, linkIfOtherColEq } from "../TableClientSideProcess/CustomColumnFunctions"
+import { customClasses, linkIfOtherColEq, processDateTime } from "../TableClientSideProcess/CustomColumnFunctions"
 
 export const colParams = {
     columnHeaders: [
@@ -16,7 +16,7 @@ export const colParams = {
         "File ID",
         "Status",
         "Peptides Matched",
-        "Date/time submitted"
+        "Date/Time Submitted (Local Time)"
     ],
     customColumns: {
         "file_id": (args) => {
@@ -33,6 +33,7 @@ export const colParams = {
                 "delete_failed": "red"
             }
             return customClasses(args, params)
-        }
+        },
+        "submitted": (args) => processDateTime(args)
     }
 }

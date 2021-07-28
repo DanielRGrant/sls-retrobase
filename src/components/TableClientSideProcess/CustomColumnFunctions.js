@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+
 export function linkIfOtherColEq({ fieldValue, columnHeader, entry }, linkTo, refCol) {
     const fieldScript = (
         entry[refCol] === "complete"
@@ -17,4 +18,10 @@ export function customClasses({ fieldValue, columnHeader}, params) {
         </td>
     )
     return fieldScript
+}
+
+export function processDateTime({fieldValue}) {
+    var localDate = new Date(fieldValue).toISOString();
+    var localDate = localDate.replace("T", " ").split(".")[0]
+    return <td>{localDate}</td>
 }

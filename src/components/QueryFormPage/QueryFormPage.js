@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoadingBox from '../LoadingBox';
 import SubmittedBox from './SubmittedBox';
 import { useSubmitSequence, useSubmitFile } from './QueryFormFunctions';
@@ -120,6 +120,7 @@ const QueryFormPage = (props) => {
         message,
         showMessage
     })
+
 
     if (loading) {
         return (
