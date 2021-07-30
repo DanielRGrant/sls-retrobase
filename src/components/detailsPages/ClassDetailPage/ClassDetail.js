@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { processResponse } from './renderHooks'
 import { fetchData } from '../functions'
-const config = require('../../../jsconfig.json')
 
 
 const ClassDetail = (props) => {

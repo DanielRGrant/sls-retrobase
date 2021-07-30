@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { startEndPaginateLinks, getPage } from './functions'
 import usePageNumbersScript from './PageNumbersScript'
-const config = require('../../../jsconfig.json')
+const config = require('../../../config.json')
 
 
 const usePageNumbers = ({ respData, setRespData, filters, sortBy, setLoading}) => {

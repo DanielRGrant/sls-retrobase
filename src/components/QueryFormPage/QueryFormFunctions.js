@@ -1,5 +1,5 @@
 import axios from 'axios';
-const config = require('../../jsconfig.json');
+const config = require('../../config.json');
 
 export const ValidateSequence = ({ query, seqType, setShowMessage, setMessage }) => {
     var message = ""
@@ -134,7 +134,6 @@ export const QueryFile = async ({ metadata, file, accessToken, getPresignedUrlUr
 const checkFileExtension = ( fname ) => {
     const spl = fname.split(".")
     const ext = spl[spl.length - 1]
-    console.log(["zip", "gz"].includes(ext))
     return ["zip", "gz"].includes(ext)
 }
 

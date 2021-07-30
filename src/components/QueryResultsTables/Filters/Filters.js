@@ -22,7 +22,6 @@ const useFilters = ({ respData, setRespData, filters, setFilters, lastFilters, s
         })
     return (
         <>
-            {console.log(Object.keys(respData.unique).length)}
             {Object.keys(respData.unique).length != 0
                 &&
                     < div className = "query-filters-box" >

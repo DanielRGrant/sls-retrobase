@@ -1,5 +1,5 @@
 import { fetchPageData } from '../../functions/functions'
-const config = require('../../jsconfig.json');
+const config = require('../../config.json');
 
 export const fetchData = async function ({ token, history, setData, fileId }) {
     const fetchDataInput = {

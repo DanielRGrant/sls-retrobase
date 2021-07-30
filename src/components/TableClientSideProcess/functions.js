@@ -90,16 +90,13 @@ export const sortArrayOfObjs = (arr, key, desc) => {
 }
 
 export const getHtmlRowFieldByIndex = (e, index) => {
-    console.log(e.currentTarget)
     var rowNodes = e.currentTarget.parentNode.parentNode.childNodes
-    console.log(rowNodes[index])
     var field = rowNodes[index].lastChild.innerHTML
     return field
 }
 
 export const tableRowToArray = (e) => {
     const rowNodes = e.currentTarget.parentNode.parentNode.childNodes
-    console.log([...rowNodes])
     const arr = [...rowNodes].map(node => {
         if (node.lastChild.innerHTML) return node.lastChild.innerHTML
         if (node.innerHTML) return node.innerHTML

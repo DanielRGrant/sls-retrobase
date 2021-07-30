@@ -1,5 +1,5 @@
 import { fetchPageData } from '../../functions/functions'
-const config = require('../../jsconfig.json')
+const config = require('../../config.json')
 const errorUrl = "/error"
 
 
@@ -10,7 +10,6 @@ export const fetchData = async ({ input, requestUrlExtension, history }) => {
         errorUrl: errorUrl,
         history: history
     }
-    console.log(config.queryApiUrl + requestUrlExtension)
     const data =  await fetchPageData(fetchDataInput)
     return data.body
 }

@@ -13,7 +13,6 @@ const FamilyDetail = (props) => {
     useEffect(() => {
         fetchData({ input: family, requestUrlExtension: "/familydetail", history: props.history })
             .then(res => {
-                console.log(res)
                 setRtClass(res[0].class)
                 setData(res)
             }).then(() => setLoading(false))

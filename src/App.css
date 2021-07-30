@@ -576,6 +576,52 @@ section.LoadingBox .css-1ujetdd{
   padding: 1rem
 }
 
+
+/* Pop up box */
+
+.popUpBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color:#e3edfc;
+  border: solid #2e70b3 1px;
+  border-radius: 5px
+}
+
+.popUpBox .contents {
+  padding: 50px; 
+}
+
+.popUpBox .contents p {
+  font-size: 1.15rem
+}
+
+.popUpBox .topBar {
+  background-color: #2e70b3;
+  height: 2.5rem;
+  padding: 0;
+  margin: 0;
+  border-bottom: solid black 1px;
+  color: white;
+  font-weight:200;
+  padding: 1rem 0 0.625rem 1.5rem;
+  font-size: 1.5rem
+}
+
+.popUpBox .topBar p {
+  color: white
+}
+
+.popUpBox .buttons {
+  text-align: right;
+  margin-top: 1.5rem
+}
+
+.popUpBox .buttons button {
+  margin: 2px
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 769px) {
 

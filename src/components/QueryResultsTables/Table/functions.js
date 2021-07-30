@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-const config = require('../../../jsconfig.json');
+const config = require('../../../config.json');
 
 
 export async function sortByFun({ e, respData, setRespData, lastFilters, colParams, sortBy, setSortBy }) {
@@ -36,7 +36,6 @@ export function createLinkItem(fieldValue, columnHeader, columnsHaveLinks) {
 }
 
 export function getHtmlRowFieldByIndex(e, index) {
-    console.log(e.currentTarget)
     var rowNodes = e.currentTarget.parentNode.parentNode.childNodes
     var field = rowNodes[index].lastChild.innerHTML
     return field

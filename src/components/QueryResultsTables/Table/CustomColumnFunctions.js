@@ -57,12 +57,8 @@ export const processDNAProtCol = ({data, prot_idURL, protURL}) => {
                 </Link>;
         };
 
-        try {
-            const first = prev.dna_id
-            const sec = current.dna_id
-        } catch {
-            console.log("HEREE BE ERROR: ", processedData)
-        }
+        const first = prev.dna_id
+        const sec = current.dna_id
 
         if (prev.dna_id === current.dna_id) {
             current.protein = <>{protIdLink} ({protLinks})</>

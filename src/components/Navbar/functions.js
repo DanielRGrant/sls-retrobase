@@ -1,5 +1,5 @@
 import { AxiosGetAndPush } from '../../functions/functions';
-const config = require("../../jsconfig.json")
+const config = require("../../config.json")
 
 
 export const NavbarSearch = ({ e, setMobileSearchBarActive, history}) => {

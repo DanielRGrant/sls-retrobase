@@ -1,5 +1,5 @@
 import axios from 'axios'
-const config = require('../../../jsconfig.json')
+const config = require('../../../config.json')
 
 export function startEndPaginateLinks({ pagesCutOff, numPages, currentPage }) {
     //Calculates cutoffs for page number links

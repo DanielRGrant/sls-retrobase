@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import isEqual from 'lodash.isequal'
-const config = require('../../../jsconfig.json')
+const config = require('../../../config.json')
 
 
 export const applyFilters = async ({
@@ -23,7 +23,6 @@ export const applyFilters = async ({
         },
 
     }
-    console.log(params)
     setLoading(true)
     const resp = await axios.get(filtersUrl, params)
     const filtRespData = JSON.parse(resp.data.body)

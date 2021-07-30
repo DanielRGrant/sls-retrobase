@@ -47,7 +47,10 @@ const TeResultsPage = (props) => {
                 <div className="page-numbers-container">
                     {pageNumbers}
                 </div>
-                <span>Items per page: {itemsPerPageSelect}</span>
+                {data.length 
+                    ? <span>Items per page: {itemsPerPageSelect}</span>
+                    : undefined
+                }
             </div>
         </section>
     )

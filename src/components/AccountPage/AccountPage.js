@@ -8,9 +8,8 @@ const AccountPage = (props) => {
     const [ isData, setIsData ] = useState(false)
     const [ loading, setLoading ] = useState(true)
     const { user } = useAuth0();
-    const AnalysisProgress = useAnalysisProgress({setIsData, setLoading})
+    const AnalysisProgress = useAnalysisProgress({ setIsData, setLoading })
     const NoFilesSubmitted = useNoFilesSubmitted()
- 
     return (
         <section className="accountPage">
             <div className="box">
