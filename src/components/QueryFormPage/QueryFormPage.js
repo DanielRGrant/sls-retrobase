@@ -16,7 +16,7 @@ const QueryFormPage = (props) => {
     const [loading, setLoading] = useState(false);
     const [loadingBoxTitle, setLoadingBoxTitle] = useState("");
     const [loadingBoxMessage, setLoadingBoxMessage] = useState("");
-    const [submitted, setSubmitted] = useState(true)
+    const [submitted, setSubmitted] = useState(false)
     const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState("")
     // Form inputs
