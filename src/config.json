@@ -1,6 +1,6 @@
 {
     "queryApiUrl": "https://h0suk54yw0.execute-api.us-east-1.amazonaws.com/test/sls-retrobase-test",
-    "auth0Audience": "",
-    "auth0Domain": "",
-    "auth0ClientId": ""
+    "auth0Audience": "https://sls-retrobase",
+    "auth0Domain": "dev-y33gimcf.eu.auth0.com",
+    "auth0ClientId": "Xn6SDc43vE8P0sQHkVLtiBSBVFT5rJMU"
 }

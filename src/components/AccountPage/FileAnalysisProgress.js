@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchData, deleteFileData, delayFetchData, addToken } from './functions'
 import { useAuth0 } from "@auth0/auth0-react";
 import useTableScript from '../TableClientSideProcess/react-table-creator';
 import { colParams } from './params'
-import PopUpOptions from '../PopUpOptions/PopUpOptions'
+import PopUpBox from '../PopUpBox/PopUpBox'
 
 
 const useFileAnalysisProgress = ({ setIsData, setLoading }) => {
@@ -13,8 +13,9 @@ const useFileAnalysisProgress = ({ setIsData, setLoading }) => {
     const [token, setToken] = useState(null)
     const history = useHistory()
     const [rowActions, setRowActions] = useState([])
-    const [popUpActive, setPopUpActive] = useState(false)
     const [deleteDataProps, setDeleteDataProps] = useState({})
+    const [popUpActive, setPopUpActive] = useState(false)
+
 
     const activateDeleteDataPopUp = (actionString) => {
         setPopUpActive(true)
@@ -58,8 +59,9 @@ const useFileAnalysisProgress = ({ setIsData, setLoading }) => {
             <span>Items per page: {itemsPerPageSelect}</span>
             {
                 popUpActive &&
-                    <PopUpOptions 
-                        setActive={setPopUpActive}
+                    <PopUpBox 
+                        setIsActive={setPopUpActive}
+                        isActive={popUpActive}
                         options={[
                             {
                                 "text": "Yes",
@@ -68,8 +70,14 @@ const useFileAnalysisProgress = ({ setIsData, setLoading }) => {
                             {
                                 "text": "No",
                                 "function": () => deleteFileData(deleteDataProps.actionString, token, "false", setPopUpActive)
+                            },
+                            {
+                                "text": "Cancel",
+                                "function": () => setPopUpActive(false)
                             }
                         ]}
+                        mainText="Would you also like to delete this data from the Tissue Expression Database?"
+                        bannerText="Deleting Data"
                     />
             }
         </div>

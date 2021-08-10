@@ -2,8 +2,6 @@ import { useRef } from 'react';
 import { useDetectOutsideClick } from '../../hooks/useDetectOutsideClick';
 import { renderOptions } from './renderHooks';
 
-// icons
-import downArrow from '../../assets/downArrow.png'
 
 
 const DropdownMenu = (props) => {

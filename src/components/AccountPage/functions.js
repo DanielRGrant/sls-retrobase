@@ -36,7 +36,6 @@ export const deleteFileData = async (actionString, token, deleteTe, setPopUpActi
         "headers": { "Authorization": `Bearer ${token}` }
     }
     await axios.get(url, headersParams) 
-    
 }
 
 export const addToken = (token, fun) => {

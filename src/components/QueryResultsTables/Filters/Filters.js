@@ -15,14 +15,14 @@ const useFilters = ({ respData, setRespData, filters, setFilters, lastFilters, s
     const filterDropdowns= useFiltersScript({ unique: respData.unique, filters });
     const handleApplyFilters = () => applyFilters({ filters, respData, setRespData, setFilterMessage, setLoading, lastFilters, setLastFilters })
         .then(() => {
-            const sortBy = respData.seq_type == "DNA"
+            const sortBy = respData.seq_type === "DNA"
                 ? "dna_id"
                 : "protein"
             setSortBy(sortBy)
         })
     return (
         <>
-            {Object.keys(respData.unique).length != 0
+            {Object.keys(respData.unique).length !== 0
                 &&
                     < div className = "query-filters-box" >
                         <h3 className="query-filters-heading">Filters</h3>

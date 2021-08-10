@@ -16,7 +16,7 @@ const QueryFormPage = (props) => {
     const [loading, setLoading] = useState(false);
     const [loadingBoxTitle, setLoadingBoxTitle] = useState("");
     const [loadingBoxMessage, setLoadingBoxMessage] = useState("");
-    const [submitted, setSubmitted] = useState(false)
+    const [submitted, setSubmitted] = useState(true)
     const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState("")
     // Form inputs
@@ -130,10 +130,13 @@ const QueryFormPage = (props) => {
             />
         )
     }
-    if (submitted) {
-        return <SubmittedBox/>
-    }
-    return queryForm
+
+    return (
+        <>
+            <SubmittedBox isActive={submitted} setIsActive={setSubmitted} />
+            {queryForm}
+        </>
+    )
 };
 
 

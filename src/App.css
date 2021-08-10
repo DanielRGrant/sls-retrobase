@@ -579,7 +579,7 @@ section.LoadingBox .css-1ujetdd{
 
 /* Pop up box */
 
-.popUpBox {
+.popUpBox, .popUpBoxContainer.popUpBox {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -620,6 +620,11 @@ section.LoadingBox .css-1ujetdd{
 
 .popUpBox .buttons button {
   margin: 2px
+}
+
+.popUpBox.FileUploadSuccess .contents {
+  padding: 5px;
+  padding-right: 10px
 }
 
 /* Extra small devices (phones, 600px and down) */

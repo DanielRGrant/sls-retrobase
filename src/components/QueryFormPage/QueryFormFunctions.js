@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { useEffect } from 'react'
 const config = require('../../config.json');
 
-export const ValidateSequence = ({ query, seqType, setShowMessage, setMessage }) => {
+export const ValidateSequence = ({ query, seqType }) => {
     var message = ""
     var valid = false
     var seq = query.toUpperCase();
@@ -27,22 +28,30 @@ export const ValidateSequence = ({ query, seqType, setShowMessage, setMessage })
 };
 
 
-export const QuerySequence = async ({data, query, seqType, requestUrl, history}) => {
+export const QuerySequence = async ({query, seqType, requestUrl, history}) => {
+    var isMounted = true
     const pushUrl = `/queryresults/${seqType}/${query}`
     const params = {
         "query": query,
         "sequenceType": seqType
     }
-
-    const resp = await axios.get(requestUrl, { params: params })
-    if (resp.data) {
-        history.push(
-            {
-                pathname: pushUrl,
-                state: { "data": resp.data.body }
-            }
+    useEffect(()=>{
+        axios.get(requestUrl, { params: params })
+            .then((resp => {
+                if (resp.data && isMounted) {
+                    history.push(
+                        {
+                            pathname: pushUrl,
+                            state: { "data": resp.data.body }
+                        }
+                    )
+                }                
+            })
         )
-    }
+        return () => {
+            isMounted = false
+        }
+    }, [])
 
     return {
         success: true,

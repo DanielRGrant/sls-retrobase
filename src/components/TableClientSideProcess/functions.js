@@ -139,10 +139,12 @@ export const itemsPerPageChangeFun = (e, tableData, setNumItemsPerPage, setCurre
 }
 
 export const rowActionFun = (e, columnHeaders, rowActions, rowArray) => {
-    const index = columnHeaders.indexOf(rowActions[e.target.id].columnHeader) + 1 // +1 offsets radio button col
-    rowActions[e.target.id].function(rowArray[index])
-    if (rowActions[e.target.id].onCompleteFunction) {
-        rowActions[e.target.id].onCompleteFunction(rowArray[index])
+    if (rowArray) {
+        const index = columnHeaders.indexOf(rowActions[e.target.id].columnHeader) + 1 // +1 offsets radio button col
+        rowActions[e.target.id].function(rowArray[index])
+        if (rowActions[e.target.id].onCompleteFunction) {
+            rowActions[e.target.id].onCompleteFunction(rowArray[index])
+        }
     }
 }
 
