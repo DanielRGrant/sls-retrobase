@@ -16,6 +16,7 @@
     "http-server": "^0.12.3",
     "jquery": "^3.5.1",
     "lodash.isequal": "^4.5.0",
+    "minimist": "^1.2.5",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
     "react": "^17.0.2",

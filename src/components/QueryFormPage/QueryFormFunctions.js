@@ -35,23 +35,19 @@ export const QuerySequence = async ({query, seqType, requestUrl, history}) => {
         "query": query,
         "sequenceType": seqType
     }
-    useEffect(()=>{
-        axios.get(requestUrl, { params: params })
-            .then((resp => {
-                if (resp.data && isMounted) {
-                    history.push(
-                        {
-                            pathname: pushUrl,
-                            state: { "data": resp.data.body }
-                        }
-                    )
-                }                
-            })
-        )
-        return () => {
-            isMounted = false
-        }
-    }, [])
+
+    axios.get(requestUrl, { params: params })
+        .then((resp => {
+            if (resp.data && isMounted) {
+                history.push(
+                    {
+                        pathname: pushUrl,
+                        state: { "data": resp.data.body }
+                    }
+                )
+            }                
+        })
+    )
 
     return {
         success: true,
