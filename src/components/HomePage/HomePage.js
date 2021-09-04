@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom'
+import ClassList from './ClassList'
 
 
 const HomePage = () => {
     return (
         <section className="home-page">
             <div className="box">
+                <div className="inlineMessage fail big">
+                    <p className="align-centered">Unfinished Prototype</p>
+                    <p className="align-centered smallertext">
+                        This application is an unfinished prototype. A list of technical improvements and features to make is available: <Link to='/futurework'>Bugs, improvements and features</Link>
+                    </p>
+                </div>
                 <div className="title-section">
                     <h1>Retrobase</h1>
                         <p>Retrobase is a database of retrotransposon DNA sequences acquired from UCSC Table Browser and proteins translated <i>in silico</i> from these sequences. All protein name labels are predicted using psi-BLAST. Retrobase serves to make these sequences queriable aid in identification of retroviral sequences in proteomic assays. </p>
@@ -16,9 +23,7 @@ const HomePage = () => {
                     <div className="text-section">	
                         <h2>Data Available</h2>
                         <p>The database is a prototype and presently contains data on the following retrotransposon classes:</p>
-                        <ul>
-                            <li><Link to={"/class/" + "ERV"}>ERV</Link></li>
-                        </ul>
+                        <ClassList/>
                     </div>
                     <div class="text-section">
                         <h2 className="UnderLineHover"><Link to="/query/"> Query Tool</Link></h2>

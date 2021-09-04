@@ -16,9 +16,9 @@ const QueryFormPage = (props) => {
     const [loading, setLoading] = useState(false);
     const [loadingBoxTitle, setLoadingBoxTitle] = useState("");
     const [loadingBoxMessage, setLoadingBoxMessage] = useState("");
-    const [submitted, setSubmitted] = useState(false)
-    const [showMessage, setShowMessage] = useState(false)
-    const [message, setMessage] = useState("")
+    const [submitted, setSubmitted] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState("");
     // Form inputs
     const [file, setFile] = useState(null);
     const [metadata, setMetadata] = useState({
@@ -74,7 +74,7 @@ const QueryFormPage = (props) => {
     }
 
     const useHandleSubmitSequence = e => useSubmitSequence({ e, 
-        metadata, 
+        metadata,
         setLoading, 
         setLoadingBoxMessage, 
         setLoadingBoxTitle, 

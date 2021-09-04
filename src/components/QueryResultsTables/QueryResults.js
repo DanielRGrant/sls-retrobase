@@ -4,6 +4,8 @@ import useTable from './Table/Table'
 import useFilters from './Filters/Filters'
 import usePageNumbers from './PageNumbers/PageNumbers'
 import useResponseMetadata from './ResponseMetadata'
+import LoadingOverlay from 'react-loading-overlay';
+import PopUpBox from '../PopUpBox/PopUpBox'
 
 
 const QueryResults = (props) => {  
@@ -16,16 +18,29 @@ const QueryResults = (props) => {
     
     //Hooks
     const dataTable = useTable({ respData, setRespData, setLoading, seqType, lastFilters, sortBy, setSortBy });
-    const filtersScript = useFilters({ respData, setRespData, filters, setFilters, lastFilters, setLastFilters, setSortBy, setLoading });
-    const pageNumbers = usePageNumbers({ respData, setRespData, filters, setLoading, sortBy})
+    const filtersScript = useFilters({ respData, setRespData, filters, setFilters, lastFilters, setLastFilters, setSortBy, loading, setLoading, seqType });
+    const pageNumbers = usePageNumbers({ respData, setRespData, filters, setLoading, sortBy, seqType})
     const responseMetadata = useResponseMetadata({respData, params: props.match.params})
 
     return (
         <section className="query-results-page">
             <div className="box queryResults">
+                <LoadingOverlay
+                    active={loading}
+                    spinner={
+                        <PopUpBox
+                            setIsActive={() => {}}
+                            isActive={loading}
+                            mainText={<><p>Fetching data...</p><p>Large amounts of data can take some time to process</p></>}
+                            bannerText=""
+                        />
+                    }
+                >
+                {console.log("Loading: ", loading)}
                 <h1>Query Results</h1>
                     <>{responseMetadata}</>
                     <>{filtersScript}</>
+                
                 {!loading && (   
                     <>
                         <div className="querytable">{dataTable}</div>
@@ -37,7 +52,7 @@ const QueryResults = (props) => {
                         <div className="page-numbers-container">{pageNumbers}</div>
                     </>
                 )}
-
+                </LoadingOverlay>
             </div>
         </section>
     )

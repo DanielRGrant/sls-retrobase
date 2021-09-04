@@ -49,8 +49,12 @@ h2 {
   padding-bottom: 15px;
 }
 
-.smallertext h1  {
+.smallertext {
   font-size:1.5rem; 
+}
+
+.align-centered {
+  text-align: center
 }
 
 .box {
@@ -565,6 +569,7 @@ section.LoadingBox .css-1ujetdd{
 }
 
 .inlineMessage.fail { 
+  text-align: center;
   color: red; 
   border: solid red  3px; 
   padding: 1rem
@@ -573,9 +578,12 @@ section.LoadingBox .css-1ujetdd{
 .inlineMessage.success { 
   color: green; 
   border: solid green  3px; 
-  padding: 1rem
+  padding: 1rem;
 }
 
+.inlineMessage.fail.big {
+  font-size: 2rem
+}
 
 /* Pop up box */
 
@@ -594,7 +602,8 @@ section.LoadingBox .css-1ujetdd{
 }
 
 .popUpBox .contents p {
-  font-size: 1.15rem
+  font-size: 1.15rem;
+  color: black
 }
 
 .popUpBox .topBar {

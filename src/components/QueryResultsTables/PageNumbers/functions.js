@@ -23,7 +23,7 @@ export function startEndPaginateLinks({ pagesCutOff, numPages, currentPage }) {
     return [start, end]
 }
 
-export const getPage = async (e, {currentPage, key, filters, setRespData, sortBy, setLoading}) => {
+export const getPage = async (e, {currentPage, key, filters, setRespData, sortBy, setLoading, seqType}) => {
     const getPageUrl = config.queryApiUrl + "/query-return-page"
     var newPage
     switch (e.target.id) {
@@ -42,7 +42,8 @@ export const getPage = async (e, {currentPage, key, filters, setRespData, sortBy
             "key": key,
             ...filters,
             "sort_by": sortBy.col,
-            "desc": sortBy.desc
+            "desc": sortBy.desc,
+            "sequenceType": seqType
         }
     }
     setLoading(true)

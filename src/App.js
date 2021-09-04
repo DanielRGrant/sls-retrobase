@@ -10,7 +10,7 @@ import RouteWithErrorBoundary from './components/RouteWithErrorBoundary'
 import NotFound from './components/NotFound'
 
 // Components
-import HomePage from './components/HomePage';
+import HomePage from './components/HomePage/HomePage';
 import AccountPage from './components/AccountPage/AccountPage';
 import TeResultsPage from './components/TeResultsPage/TeResultsPage';
 import QueryResults from './components/QueryResultsTables/QueryResults';
@@ -23,7 +23,8 @@ import ProteinNameDetail from './components/detailsPages/ProteinNameDetail/Prote
 import ProteinRecordDetail from './components/detailsPages/ProteinRecordDetail/ProteinRecordDetail';
 import DnaDetail from './components/detailsPages/DnaDetail/DnaDetail';
 import TeContainer from './components/TissueExpression/TeContainer';
-import Documentation from './components/Documentation';
+import Documentation from './components/Documentation/Documentation';
+import FutureWork from './components/Documentation/FutureWork';
 import ErrorPage from './components/ErrorPage';
 
 
@@ -56,6 +57,7 @@ function App() {
           <RouteWithErrorBoundary path="/loggedout" component={LoggedOut}/>
 
           <RouteWithErrorBoundary path="/documentation" component={Documentation}/>
+          <RouteWithErrorBoundary path="/futurework" component={FutureWork} />
 
           
           <RouteWithErrorBoundary path="/error" component={ErrorPage}/>

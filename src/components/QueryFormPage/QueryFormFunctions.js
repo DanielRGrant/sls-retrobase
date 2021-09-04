@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react'
+import { RequestAndPulse } from '../../functions/functions'
 const config = require('../../config.json');
 
 export const ValidateSequence = ({ query, seqType }) => {
@@ -8,17 +9,26 @@ export const ValidateSequence = ({ query, seqType }) => {
     var seq = query.toUpperCase();
     const invalidCharMsg = "Sequence contains invalid characters."
 
+    
     switch (seqType) {
         case "dna":
+            if (seq.length < 4 ){
+                valid = false
+                message = "DNA sequence queries must be at least 5 bases"
+                break
+            }
             if (RegExp("^[ATGC]+$").test(seq)) {
                 message = invalidCharMsg
                 valid = true
+            } else {
+                message = invalidCharMsg
             }
             break
         case "protein":
             if ( RegExp("^[ABCDEFGHIKLMNPQRSTUVWXYZ]+$").test(seq) ) {
-                message = invalidCharMsg
                 valid = true
+            } else {
+                message = invalidCharMsg
             }
             break
         default:
@@ -27,36 +37,9 @@ export const ValidateSequence = ({ query, seqType }) => {
     return { message, valid }
 };
 
-
-export const QuerySequence = async ({query, seqType, requestUrl, history}) => {
-    var isMounted = true
-    const pushUrl = `/queryresults/${seqType}/${query}`
-    const params = {
-        "query": query,
-        "sequenceType": seqType
-    }
-
-    axios.get(requestUrl, { params: params })
-        .then((resp => {
-            if (resp.data && isMounted) {
-                history.push(
-                    {
-                        pathname: pushUrl,
-                        state: { "data": resp.data.body }
-                    }
-                )
-            }                
-        })
-    )
-
-    return {
-        success: true,
-        message: "No error"
-    }
-}
-
 export const useSubmitSequence = ({
-    e, 
+    e,
+    loading,
     setLoading, 
     setShowMessage, 
     setMessage, 
@@ -72,16 +55,40 @@ export const useSubmitSequence = ({
     const seqType = e.target.sequenceType.value;
     const query = e.target.query.value;
 
-    const requestUrl = config.queryApiUrl + "/query-sequences-s3";
+
     const { valid, message } = ValidateSequence({ query, seqType, setLoading, setShowMessage, setMessage })
     if (!valid) {
         setMessage(message)
         setShowMessage(true)
-        setLoading(false)
+        //setLoading(false)
         return
     }
+    console.log(seqType)
+    const masterParams = {
+        query,
+        "sequenceType": seqType
+    }
+    const pulseParams = {
+        sort_by: seqType === "dna" ? "dna_id" : "prot_id"
+    }
+    const masterUrl = config.queryApiUrl + "/query-master";
+    const pulseUrl = config.queryApiUrl + "/query-return-page";
+    const pushUrl = `/queryresults/${seqType}/${query}`;
 
-    QuerySequence({query, seqType, requestUrl, history}).catch(res => {
+    const onComplete = (data) => {
+        console.log(data)
+        if (history && pushUrl) {
+            history.push(
+                {
+                    pathname: pushUrl,
+                    state: { "data": data }
+                }
+            )
+        }
+    }
+
+
+    RequestAndPulse({ masterParams, pulseParams, masterUrl, pulseUrl, masterResponseKeys: ["key"], history, delayType: 10000, onComplete}).catch(res => {
         if (res){
             setLoading(false);
             setShowMessage(true);
@@ -145,7 +152,7 @@ const checkFileExtension = ( fname ) => {
 export const useSubmitFile = async ({
     e, 
     metadata, 
-    file, 
+    file,
     setLoading, 
     setLoadingBoxTitle, 
     setLoadingBoxMessage, 

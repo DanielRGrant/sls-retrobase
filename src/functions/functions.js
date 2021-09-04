@@ -66,3 +66,53 @@ export const fetchPageData = async ({ headersParams, requestUrl, errorUrl, histo
 
 
 
+export const RequestAndPulse = async ({ masterParams, pulseParams = {}, masterUrl, pulseUrl, masterResponseKeys, delayTime, onComplete, doContinue=true }) => {
+    var isMounted = true
+    const masterResp = await axios.get(masterUrl, { params: masterParams })
+    for (let i in masterResponseKeys) {
+        console.log(masterResponseKeys[i])
+        pulseParams = {
+            ...pulseParams,
+            [masterResponseKeys[i]]: masterResp.data.body[masterResponseKeys[i]]
+        }
+    }
+    console.log(pulseParams)
+    if (isMounted) {
+        var delayTime = 10000
+        while (true) {
+            console.log(doContinue)
+            console.log("Looping with delay: ", delayTime)
+            console.log(pulseParams)
+            const resp = await axios.get(
+                pulseUrl,
+                { params: pulseParams}
+            )
+            if (resp.data.statusCode === 200) {
+                console.log("success")
+                onComplete(resp.data.body)
+                break
+            } else if (delayTime >= 640000) {
+                console.log("failed")
+                return (
+                    {
+                        success: false,
+                        message: "Request timed out. Request must complete in under 15 minutes"
+                    }
+                )
+            } else if (resp.data.statusCode === 404) {
+                //setDelaying(delayTime)
+                //if (!doContinue) break
+                await delay(delayTime)
+                delayTime *= 2
+                console.log("delaying")
+            } else {
+                console.log(resp)
+                break
+            }
+        }
+    }
+    return {
+        success: true,
+        message: "No error"
+    }
+}

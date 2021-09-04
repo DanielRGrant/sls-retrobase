@@ -3,7 +3,7 @@ import useFiltersScript from './FiltersScript'
 import { applyFilters } from './functions'
 
 
-const useFilters = ({ respData, setRespData, filters, setFilters, lastFilters, setLastFilters, setSortBy, setLoading}) => {
+const useFilters = ({ respData, setRespData, filters, setFilters, lastFilters, setLastFilters, setSortBy, loading, setLoading, seqType}) => {
     const [filterMessage, setFilterMessage] = useState("")
     useEffect(() => setFilters(
         {
@@ -13,7 +13,7 @@ const useFilters = ({ respData, setRespData, filters, setFilters, lastFilters, s
         }
     ),[])
     const filterDropdowns= useFiltersScript({ unique: respData.unique, filters });
-    const handleApplyFilters = () => applyFilters({ filters, respData, setRespData, setFilterMessage, setLoading, lastFilters, setLastFilters })
+    const handleApplyFilters = () => applyFilters({ filters, respData, setRespData, setFilterMessage, loading, setLoading, lastFilters, setLastFilters, seqType })
         .then(() => {
             const sortBy = respData.seq_type === "DNA"
                 ? "dna_id"

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { RequestAndPulse } from '../../../functions/functions'
 const config = require('../../../config.json');
 
 
@@ -7,7 +8,7 @@ export async function sortByFun({ e, respData, setRespData, lastFilters, colPara
     const i = colParams.columnHeadersFinal.indexOf(e.currentTarget.textContent)
     const sortByCol = colParams.columnHeaders[i]
     const sortByUrl = config.queryApiUrl + '/query-sort-by'
-    const params = {
+    /*const params = {
         params: {
             ...lastFilters,
             "key": respData.key,
@@ -21,7 +22,28 @@ export async function sortByFun({ e, respData, setRespData, lastFilters, colPara
         desc: sortByCol === sortBy.col ? !sortBy.desc : true
     })
     const sortedRespData = JSON.parse(resp.data.body)
-    setRespData(sortedRespData)
+    setRespData(sortedRespData)*/
+
+    const masterParams = {
+            ...lastFilters,
+            "key": respData.key,
+            "sort_by": sortByCol,
+            "desc": sortByCol === sortBy.col ? !sortBy.desc : true
+        }
+    const pulseParams = masterParams
+    const masterUrl = config.queryApiUrl + "/query-sort-by"
+    const pulseUrl = config.queryApiUrl + "/query-return-page"
+
+    const onComplete = (data) => {
+        setSortBy({
+            col: sortByCol,
+            desc: sortByCol === sortBy.col ? !sortBy.desc : true
+        })
+        const sortedRespData = JSON.parse(data)
+        setRespData(sortedRespData)
+        console.log(respData)
+    }
+    RequestAndPulse({ masterParams, pulseParams, masterUrl, pulseUrl, delayTime: 10000, onComplete })
 }
 
 export function createLinkItem(fieldValue, columnHeader, columnsHaveLinks) {
