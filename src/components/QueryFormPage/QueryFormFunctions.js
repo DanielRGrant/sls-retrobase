@@ -161,7 +161,7 @@ export const useSubmitFile = async ({
     setSubmitted,
     isAuthenticated, 
     getAccessTokenSilently, 
-    loginWithRedirect
+    loginWithRedirectWithAppState
 }) => {
     e.preventDefault()
 
@@ -180,7 +180,7 @@ export const useSubmitFile = async ({
     }
 
     if (!isAuthenticated) {
-        loginWithRedirect({ appState: { returnTo: window.location.pathname } })
+        loginWithRedirectWithAppState({ appState: { returnTo: window.location.pathname } })
         return
     } else {
         setLoading(true);

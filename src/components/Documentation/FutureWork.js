@@ -24,6 +24,7 @@ const FutureWork = () => {
                     <li>Look into sending client side errors.</li>
                     <li>Implement state sharing with context or reducers on front end</li>
                     <li>On front end, when MZID query fails, make “failed” field clickable with a pop up giving a message explaining why it failed</li>
+                    <li>Use S3 select for class data as having all families in one dynamodb item is not possible due to memory constraints</li>
                 </ul>
 
                 <h2>Features</h2>

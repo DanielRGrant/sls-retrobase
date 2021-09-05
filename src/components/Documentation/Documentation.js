@@ -7,6 +7,12 @@ const Documentation = () => {
         <section className="documentation">
             <div className="box">
                 <h1>Documentation</h1>
+                <h2>Documentation Links</h2>
+                <ul>
+                    <li><Link to="/futurework">Future work</Link></li>
+                    <li><Link to="/instructions">Instructions on using the app</Link></li>
+                    <li><Link to="/deploymentinstructions">Deployment instructions</Link></li>
+                </ul>
                 <h2>The purpose of the project</h2>
                 <p>Retrobase is a project I am undertaking both as a vehicle for self-teaching full stack development and cloud architecting skills in AWS, as well as a means of demonstrating my abilities to prospective employers. It is a project in progress. </p>
                 <h2>The Specification</h2>
@@ -19,6 +25,17 @@ const Documentation = () => {
 
                 <h2 id="architectureDoc">The Architecture</h2>
                 <p>Up to date documentation on architecture is not available</p>
+                <h2>Source Code</h2>
+                <p>Back end:</p>
+                    <li>
+                        <a href="https://github.com/DanielRGrant/serverlessfiles">https://github.com/DanielRGrant/serverlessfiles</a>
+                    </li>
+                <p>Front end:</p>
+                    <li>
+                        <a href="https://github.com/DanielRGrant/sls-retrobase-front-end">
+                            https://github.com/DanielRGrant/sls-retrobase-front-end
+                        </a>
+                    </li>
             </div>
         </section>
     )

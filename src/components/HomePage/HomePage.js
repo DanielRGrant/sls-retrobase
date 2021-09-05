@@ -8,7 +8,7 @@ const HomePage = () => {
             <div className="box">
                 <div className="inlineMessage fail big">
                     <p className="align-centered">Unfinished Prototype</p>
-                    <p className="align-centered smallertext">
+                    <p className="align-centered smalltext">
                         This application is an unfinished prototype. A list of technical improvements and features to make is available: <Link to='/futurework'>Bugs, improvements and features</Link>
                     </p>
                 </div>

@@ -49,8 +49,12 @@ h2 {
   padding-bottom: 15px;
 }
 
+.smalltext, .smallertext h1 {
+  font-size:1.5rem;
+}
+
 .smallertext {
-  font-size:1.5rem; 
+  font-size:1rem; 
 }
 
 .align-centered {

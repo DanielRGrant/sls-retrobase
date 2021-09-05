@@ -156,7 +156,7 @@ export const renderQueryForm = ({
                                                 <label for="sequence">Manually enter sequence: </label><input type="radio" value="sequence" name="inputType" checked={inputType === "sequence"} onChange={onInputTypeChange}></input>
                                             </span>
                                             <span className="nowrap">
-                                                <label for="file">MZID File: </label><input type="radio" value="file" name="inputType" checked={inputType === "file"} onChange={onInputTypeChange}></input>
+                                                <label for="file">MZID File: </label><input type="radio" value="file" name="inputType" checked={inputType === "file"} onChange={onInputTypeChange} disabled></input>
                                             </span>
                                         </td>
                                     </tr>

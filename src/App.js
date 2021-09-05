@@ -25,6 +25,8 @@ import DnaDetail from './components/detailsPages/DnaDetail/DnaDetail';
 import TeContainer from './components/TissueExpression/TeContainer';
 import Documentation from './components/Documentation/Documentation';
 import FutureWork from './components/Documentation/FutureWork';
+import Instructions from './components/Documentation/Instructions';
+import DeploymentInstructions from './components/Documentation/DeploymentInstructions';
 import ErrorPage from './components/ErrorPage';
 
 
@@ -58,7 +60,8 @@ function App() {
 
           <RouteWithErrorBoundary path="/documentation" component={Documentation}/>
           <RouteWithErrorBoundary path="/futurework" component={FutureWork} />
-
+          <RouteWithErrorBoundary path="/instructions" component={Instructions} />
+          <RouteWithErrorBoundary path="/deploymentinstructions" component={DeploymentInstructions} />
           
           <RouteWithErrorBoundary path="/error" component={ErrorPage}/>
           <RouteWithErrorBoundary component={NotFound}/>
